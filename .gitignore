@@ -1,2 +1,5 @@
-minesweeper.elf
-minesweeper.gba
+gba-minesweeper.elf
+gba-minesweeper.gba
+source/assets
+build/*
+.DS_Store
