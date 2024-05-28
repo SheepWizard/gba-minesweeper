@@ -1,5 +1,7 @@
 gba-minesweeper.elf
 gba-minesweeper.gba
+gba-minesweeper.sav
 source/assets
 build/*
 .DS_Store
+.vscode

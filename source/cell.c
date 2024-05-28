@@ -20,12 +20,12 @@ void create_cell(int x, int y, int number, int isMine, Cell *myCell)
   myCell->isOpen = 0;
 }
 
-void draw_cell(Cell *myCell)
+void draw_cell(Cell *inCell)
 {
 
   const unsigned short *cellImage = cell_hiddenBitmap;
 
-  switch (myCell->number)
+  switch (inCell->number)
   {
   case 1:
     cellImage = cell_1Bitmap;
@@ -56,8 +56,8 @@ void draw_cell(Cell *myCell)
     break;
   }
 
-  int yOffset = 8 * myCell->y;
-  int xOffset = 8 * myCell->x;
+  int yOffset = 8 * inCell->y;
+  int xOffset = 8 * inCell->x;
   int y = 0;
   for (y = 0; y < 8; y++)
   {
