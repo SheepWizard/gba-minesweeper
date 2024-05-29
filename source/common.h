@@ -24,4 +24,5 @@ typedef struct Board
   int nonMineCellsOpened;
   bool gameOver;
   int hitMine;
+  int clicks;
 } Board;

@@ -50,13 +50,68 @@ void get_cell_neighbours(Board *inBoard, Cell *inCell, int *outCells)
 	}
 }
 
+void open_multiple(Board *board, Cell *cell)
+{
+	Cell *stack[board->maxY * board->maxY];
+	int stackTop = -1;
+	cell->isOpen = true;
+	stackTop++;
+	stack[stackTop] = cell;
+	while (stackTop >= 0)
+	{
+		int i;
+		Cell *poppedCell = stack[stackTop];
+		stackTop--;
+		int neighbours[NEIGHBOUR_SIZE];
+		get_cell_neighbours(board, poppedCell, neighbours);
+		for (i = 0; i < NEIGHBOUR_SIZE; i++)
+		{
+			Cell *neighbourCell = &board->cells[neighbours[i]];
+			if (neighbourCell->isFlagged || neighbourCell->isOpen)
+			{
+				continue;
+			}
+			neighbourCell->isOpen = true;
+			board->nonMineCellsOpened++;
+			if (neighbourCell->number == 0)
+			{
+				stackTop++;
+				stack[stackTop] = neighbourCell;
+			}
+			draw_cell(neighbourCell);
+		}
+	}
+}
+
 void open_cell(Board *board, Cell *cell)
 {
 	if (cell->isFlagged || cell->isOpen)
 	{
 		return;
 	}
+
 	cell->isOpen = true;
+	if (board->clicks == 0)
+	{
+		if (cell->isMine)
+		{
+			// move mine
+		}
+		// start timer
+	}
+	if (cell->isMine)
+	{
+		// game over
+		return;
+	}
+
+	board->clicks++;
+	board->nonMineCellsOpened++;
+	cell->isOpen = true;
+	if (cell->number == 0)
+	{
+		open_multiple(board, cell);
+	}
 }
 
 int main()
@@ -90,6 +145,7 @@ int main()
 	b.minesCount = 10;
 	b.nonMineCellsOpened = 0;
 	b.cells = &cells[0][0];
+	b.clicks = 0;
 
 	int nonRepeatingNumbersList[b.minesCount];
 	non_repeating_numbers(b.maxX * b.maxY, b.minesCount, nonRepeatingNumbersList);
