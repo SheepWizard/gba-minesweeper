@@ -27,46 +27,52 @@ void draw_cell(Cell *inCell)
 
   const unsigned short *cellImage = cell_hiddenBitmap;
 
-  if (inCell->isMine)
+  if (inCell->isOpen)
   {
-    cellImage = cell_mineBitmap;
+    if (inCell->isMine)
+    {
+      cellImage = cell_mineBitmap;
+    }
+    else
+    {
+      switch (inCell->number)
+      {
+      case 0:
+        cellImage = cell_openBitmap;
+        break;
+      case 1:
+        cellImage = cell_1Bitmap;
+        break;
+      case 2:
+        cellImage = cell_2Bitmap;
+        break;
+      case 3:
+        cellImage = cell_3Bitmap;
+        break;
+      case 4:
+        cellImage = cell_4Bitmap;
+        break;
+      case 5:
+        cellImage = cell_5Bitmap;
+        break;
+      case 6:
+        cellImage = cell_6Bitmap;
+        break;
+      case 7:
+        cellImage = cell_7Bitmap;
+        break;
+      case 8:
+        cellImage = cell_8Bitmap;
+        break;
+      default:
+        cellImage = cell_openBitmap;
+        break;
+      }
+    }
   }
   else
   {
-
-    switch (inCell->number)
-    {
-    case 0:
-      cellImage = cell_hiddenBitmap;
-      break;
-    case 1:
-      cellImage = cell_1Bitmap;
-      break;
-    case 2:
-      cellImage = cell_2Bitmap;
-      break;
-    case 3:
-      cellImage = cell_3Bitmap;
-      break;
-    case 4:
-      cellImage = cell_4Bitmap;
-      break;
-    case 5:
-      cellImage = cell_5Bitmap;
-      break;
-    case 6:
-      cellImage = cell_6Bitmap;
-      break;
-    case 7:
-      cellImage = cell_7Bitmap;
-      break;
-    case 8:
-      cellImage = cell_8Bitmap;
-      break;
-    default:
-      cellImage = cell_hiddenBitmap;
-      break;
-    }
+    cellImage = cell_hiddenBitmap;
   }
 
   int yOffset = 8 * inCell->y;

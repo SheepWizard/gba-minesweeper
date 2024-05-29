@@ -8,7 +8,7 @@
 #include "cell.h"
 #include <stdlib.h>
 
-void nonRepeatingNumbers(int size, int max, int *out)
+void non_repeating_numbers(int size, int max, int *out)
 {
 	int list[size];
 	int i;
@@ -28,7 +28,7 @@ void nonRepeatingNumbers(int size, int max, int *out)
 	}
 }
 
-void getCellNeighbours(Board *inBoard, Cell *inCell, int *outCells)
+void get_cell_neighbours(Board *inBoard, Cell *inCell, int *outCells)
 {
 	int i, j, count = 0;
 	for (i = -1; i < 2; i++)
@@ -44,10 +44,19 @@ void getCellNeighbours(Board *inBoard, Cell *inCell, int *outCells)
 			}
 		}
 	}
-	for (i = count; count < 8; count++)
+	for (i = count; count < NEIGHBOUR_SIZE; count++)
 	{
 		outCells[count] = -1;
 	}
+}
+
+void open_cell(Board *board, Cell *cell)
+{
+	if (cell->isFlagged || cell->isOpen)
+	{
+		return;
+	}
+	cell->isOpen = true;
 }
 
 int main()
@@ -83,18 +92,21 @@ int main()
 	b.cells = &cells[0][0];
 
 	int nonRepeatingNumbersList[b.minesCount];
-	nonRepeatingNumbers(b.maxX * b.maxY, b.minesCount, nonRepeatingNumbersList);
+	non_repeating_numbers(b.maxX * b.maxY, b.minesCount, nonRepeatingNumbersList);
 
 	int i;
 	for (i = 0; i < b.minesCount; i++)
 	{
-		mgba_printf(logLevel, "%d", nonRepeatingNumbersList[i]);
 		b.cells[nonRepeatingNumbersList[i]].isMine = true;
-		int neighbours[8];
-		getCellNeighbours(&b, &b.cells[nonRepeatingNumbersList[i]], neighbours);
+		int neighbours[NEIGHBOUR_SIZE];
+		get_cell_neighbours(&b, &b.cells[nonRepeatingNumbersList[i]], neighbours);
 		int j;
-		for (j = 0; j < 8; j++)
+		for (j = 0; j < NEIGHBOUR_SIZE; j++)
 		{
+			if (neighbours[j] == -1)
+			{
+				continue;
+			}
 			b.cells[neighbours[j]].number++;
 		}
 	}
@@ -110,6 +122,9 @@ int main()
 	int frameX = 0,
 			frameY = 0;
 
+	int oldFrameX = frameX;
+	int oldFrameY = frameY;
+	m3_frame(frameX * CELL_SIZE, frameY * CELL_SIZE, frameX * CELL_SIZE + CELL_SIZE, frameY * CELL_SIZE + CELL_SIZE, CLR_RED);
 	while (1)
 	{
 		vid_vsync();
@@ -130,7 +145,38 @@ int main()
 		{
 			frameY++;
 		}
-		// m3_frame(frameX * cellSize, frameY * cellSize, frameX * cellSize + cellSize, frameY * cellSize + cellSize, CLR_RED);
+		if (key_hit(KEY_A))
+		{
+			mgba_printf(logLevel, "Hit");
+			open_cell(&b, &b.cells[frameY * b.maxX + frameX]);
+			draw_cell(&b.cells[oldFrameY * b.maxX + oldFrameX]);
+			m3_frame(frameX * CELL_SIZE, frameY * CELL_SIZE, frameX * CELL_SIZE + CELL_SIZE, frameY * CELL_SIZE + CELL_SIZE, CLR_RED);
+		}
+		if (frameX >= b.maxX)
+		{
+			frameX = 0;
+		}
+		if (frameX < 0)
+		{
+			frameX = b.maxX - 1;
+		}
+		if (frameY >= b.maxY)
+		{
+			frameY = 0;
+		}
+		if (frameY < 0)
+		{
+			frameY = b.maxY - 1;
+		}
+
+		if (oldFrameX != frameX || oldFrameY != frameY)
+		{
+			mgba_printf(logLevel, "Draw");
+			draw_cell(&b.cells[oldFrameY * b.maxX + oldFrameX]);
+			m3_frame(frameX * CELL_SIZE, frameY * CELL_SIZE, frameX * CELL_SIZE + CELL_SIZE, frameY * CELL_SIZE + CELL_SIZE, CLR_RED);
+			oldFrameX = frameX;
+			oldFrameY = frameY;
+		}
 	}
 
 	return 0;

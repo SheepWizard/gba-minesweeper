@@ -1,6 +1,9 @@
 #pragma once
 #include "tonc.h"
 
+#define CELL_SIZE 8
+#define NEIGHBOUR_SIZE 8
+
 typedef struct Cell
 {
   int x;
