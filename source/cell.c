@@ -75,11 +75,11 @@ void draw_cell(Cell *inCell)
     cellImage = cell_hiddenBitmap;
   }
 
-  int yOffset = 8 * inCell->y;
-  int xOffset = 8 * inCell->x;
+  int yOffset = CELL_SIZE * inCell->y;
+  int xOffset = CELL_SIZE * inCell->x;
   int y = 0;
-  for (y = 0; y < 8; y++)
+  for (y = 0; y < CELL_SIZE; y++)
   {
-    memcpy(&vid_mem[(y + yOffset) * M3_WIDTH + xOffset], &cellImage[y * 8], 16);
+    memcpy(&vid_mem[(y + yOffset) * M3_WIDTH + xOffset], &cellImage[y * CELL_SIZE], 16);
   }
 }

@@ -8,6 +8,8 @@
 #include "cell.h"
 #include <stdlib.h>
 
+LogLevel logLevel = LOG_INFO;
+
 void non_repeating_numbers(int size, int max, int *out)
 {
 	int list[size];
@@ -54,7 +56,6 @@ void open_multiple(Board *board, Cell *cell)
 {
 	Cell *stack[board->maxY * board->maxY];
 	int stackTop = -1;
-	cell->isOpen = true;
 	stackTop++;
 	stack[stackTop] = cell;
 	while (stackTop >= 0)
@@ -118,8 +119,8 @@ int main()
 {
 	REG_DISPCNT = DCNT_MODE3 | DCNT_BG2;
 
-	int maxX = 9;
-	int maxY = 9;
+	int maxX = 16;
+	int maxY = 16;
 
 	Cell cells[maxY][maxX];
 	int x;
@@ -134,15 +135,13 @@ int main()
 		}
 	}
 
-	LogLevel logLevel = LOG_INFO;
-
 	Board b;
 	b.maxX = maxX;
 	b.maxY = maxY;
 	b.flagsPlaced = 0;
 	b.gameOver = false;
 	b.hitMine = false;
-	b.minesCount = 10;
+	b.minesCount = 40;
 	b.nonMineCellsOpened = 0;
 	b.cells = &cells[0][0];
 	b.clicks = 0;
