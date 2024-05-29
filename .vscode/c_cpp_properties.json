@@ -5,7 +5,6 @@
             "includePath": [
                 "${workspaceFolder}/**",
                 "${workspaceFolder}/assets/*",
-                "/Users/meow/Documents/devkitpro/libgba/include/**",
                 "/Users/meow/Documents/devkitpro/libtonc/include/**"
             ],
             "defines": [],

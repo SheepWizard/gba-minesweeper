@@ -8,11 +8,6 @@
 #include "cell.h"
 #include <stdlib.h>
 
-int ran()
-{
-	return rand() % 8 + 1;
-}
-
 void nonRepeatingNumbers(int size, int max, int *out)
 {
 	int list[size];
@@ -33,11 +28,25 @@ void nonRepeatingNumbers(int size, int max, int *out)
 	}
 }
 
-void getCellNeighbours(int size, Cell *inCells, Cell *outCells)
+void getCellNeighbours(Board *inBoard, Cell *inCell, int *outCells)
 {
-	int i;
-	for (i = 0; i < size; i++)
+	int i, j, count = 0;
+	for (i = -1; i < 2; i++)
 	{
+		for (j = -1; j < 2; j++)
+		{
+			int newX = i + inCell->x;
+			int newY = j + inCell->y;
+			if ((inCell->x != newX || inCell->y != newY) && newX > -1 && newY > -1 && newX < inBoard->maxX && newY < inBoard->maxY)
+			{
+				outCells[count] = newY * inBoard->maxX + newX;
+				count++;
+			}
+		}
+	}
+	for (i = count; count < 8; count++)
+	{
+		outCells[count] = -1;
 	}
 }
 
@@ -56,7 +65,7 @@ int main()
 		for (x = 0; x < maxX; x++)
 		{
 			Cell c;
-			create_cell(x, y, ran(), 0, &c);
+			create_cell(x, y, 0, 0, &c);
 			cells[y][x] = c;
 		}
 	}
@@ -81,6 +90,13 @@ int main()
 	{
 		mgba_printf(logLevel, "%d", nonRepeatingNumbersList[i]);
 		b.cells[nonRepeatingNumbersList[i]].isMine = true;
+		int neighbours[8];
+		getCellNeighbours(&b, &b.cells[nonRepeatingNumbersList[i]], neighbours);
+		int j;
+		for (j = 0; j < 8; j++)
+		{
+			b.cells[neighbours[j]].number++;
+		}
 	}
 
 	for (y = 0; y < b.maxY; y++)

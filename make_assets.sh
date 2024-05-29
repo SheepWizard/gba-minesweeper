@@ -14,3 +14,5 @@ grit $ASSETS/cell_5.png -gb -gu16
 grit $ASSETS/cell_6.png -gb -gu16
 grit $ASSETS/cell_7.png -gb -gu16
 grit $ASSETS/cell_8.png -gb -gu16
+grit $ASSETS/cell_open.bmp -gb -gu16
+grit $ASSETS/cell_mine.bmp -gb -gu16
