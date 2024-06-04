@@ -187,7 +187,6 @@ void open_cell(Board *board, Cell *cell)
 	cell->isOpen = true;
 	if (cell->number == 0)
 	{
-		board->nonMineCellsOpened--;
 		open_multiple(board, cell);
 	}
 	check_win(board);
@@ -283,7 +282,6 @@ int main()
 			open_cell(&b, &b.cells[frameY * b.maxX + frameX]);
 			draw_cell(&b.cells[oldFrameY * b.maxX + oldFrameX]);
 			m3_frame(frameX * CELL_SIZE, frameY * CELL_SIZE, frameX * CELL_SIZE + CELL_SIZE, frameY * CELL_SIZE + CELL_SIZE, CLR_RED);
-			mgba_printf(logLevel, "%d", b.nonMineCellsOpened);
 		}
 		if (key_hit(KEY_B))
 		{
