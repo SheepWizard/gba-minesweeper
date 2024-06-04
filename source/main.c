@@ -52,6 +52,45 @@ void get_cell_neighbours(Board *inBoard, Cell *inCell, int *outCells)
 	}
 }
 
+// test me
+void move_mine(Board *board, Cell *cell)
+{
+	int y, x;
+	bool moved = false;
+	for (y = 0; y < board->maxY; y++)
+	{
+		for (x = 0; x < board->maxX; x++)
+		{
+			int i;
+			Cell *c = board->cells;
+			if (c[y * board->maxX + x].isMine == true)
+			{
+				continue;
+			}
+			c[y * board->maxX + x].isMine = true;
+			int neighbours[NEIGHBOUR_SIZE];
+			get_cell_neighbours(board, c, neighbours);
+			for (i = 0; i < NEIGHBOUR_SIZE; i++)
+			{
+				board->cells[neighbours[i]].number++;
+			}
+			moved = true;
+		}
+		if (moved)
+		{
+			break;
+		}
+	}
+	int i;
+	cell->isMine = true;
+	int neighbours[NEIGHBOUR_SIZE];
+	get_cell_neighbours(board, cell, neighbours);
+	for (i = 0; i < NEIGHBOUR_SIZE; i++)
+	{
+		board->cells[neighbours[i]].number++;
+	}
+}
+
 void open_multiple(Board *board, Cell *cell)
 {
 	Cell *stack[board->maxY * board->maxY];
@@ -84,6 +123,29 @@ void open_multiple(Board *board, Cell *cell)
 	}
 }
 
+void flag_cell(Board *board, Cell *cell)
+{
+	if (cell->isFlagged)
+	{
+		cell->isFlagged = false;
+		board->flagsPlaced--;
+	}
+	else
+	{
+		cell->isFlagged = true;
+		board->flagsPlaced++;
+	}
+}
+
+void check_win(Board *board)
+{
+	if (board->nonMineCellsOpened < (board->maxX * board->maxY) - board->minesCount)
+	{
+		return;
+	}
+	mgba_printf(logLevel, "Winner");
+}
+
 void open_cell(Board *board, Cell *cell)
 {
 	if (cell->isFlagged || cell->isOpen)
@@ -96,7 +158,9 @@ void open_cell(Board *board, Cell *cell)
 	{
 		if (cell->isMine)
 		{
-			// move mine
+			move_mine(board, cell);
+			open_cell(board, cell);
+			return;
 		}
 		// start timer
 	}
@@ -111,16 +175,18 @@ void open_cell(Board *board, Cell *cell)
 	cell->isOpen = true;
 	if (cell->number == 0)
 	{
+		board->nonMineCellsOpened--;
 		open_multiple(board, cell);
 	}
+	check_win(board);
 }
 
 int main()
 {
 	REG_DISPCNT = DCNT_MODE3 | DCNT_BG2;
 
-	int maxX = 16;
-	int maxY = 16;
+	int maxX = 5;
+	int maxY = 5;
 
 	Cell cells[maxY][maxX];
 	int x;
@@ -141,7 +207,7 @@ int main()
 	b.flagsPlaced = 0;
 	b.gameOver = false;
 	b.hitMine = false;
-	b.minesCount = 40;
+	b.minesCount = 2;
 	b.nonMineCellsOpened = 0;
 	b.cells = &cells[0][0];
 	b.clicks = 0;
@@ -202,9 +268,16 @@ int main()
 		}
 		if (key_hit(KEY_A))
 		{
-			mgba_printf(logLevel, "Hit");
 			open_cell(&b, &b.cells[frameY * b.maxX + frameX]);
 			draw_cell(&b.cells[oldFrameY * b.maxX + oldFrameX]);
+			m3_frame(frameX * CELL_SIZE, frameY * CELL_SIZE, frameX * CELL_SIZE + CELL_SIZE, frameY * CELL_SIZE + CELL_SIZE, CLR_RED);
+			mgba_printf(logLevel, "%d", b.nonMineCellsOpened);
+		}
+		if (key_hit(KEY_B))
+		{
+			mgba_printf(logLevel, "Mine");
+			flag_cell(&b, &b.cells[frameY * b.maxX + frameX]);
+			draw_cell(&b.cells[frameY * b.maxX + frameX]);
 			m3_frame(frameX * CELL_SIZE, frameY * CELL_SIZE, frameX * CELL_SIZE + CELL_SIZE, frameY * CELL_SIZE + CELL_SIZE, CLR_RED);
 		}
 		if (frameX >= b.maxX)
@@ -226,7 +299,6 @@ int main()
 
 		if (oldFrameX != frameX || oldFrameY != frameY)
 		{
-			mgba_printf(logLevel, "Draw");
 			draw_cell(&b.cells[oldFrameY * b.maxX + oldFrameX]);
 			m3_frame(frameX * CELL_SIZE, frameY * CELL_SIZE, frameX * CELL_SIZE + CELL_SIZE, frameY * CELL_SIZE + CELL_SIZE, CLR_RED);
 			oldFrameX = frameX;

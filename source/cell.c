@@ -11,6 +11,7 @@
 #include "assets/cell_8.h"
 #include "assets/cell_open.h"
 #include "assets/cell_mine.h"
+#include "assets/cell_flag.h"
 
 void create_cell(int x, int y, int number, int isMine, Cell *myCell)
 {
@@ -69,6 +70,10 @@ void draw_cell(Cell *inCell)
         break;
       }
     }
+  }
+  else if (inCell->isFlagged)
+  {
+    cellImage = cell_flagBitmap;
   }
   else
   {
