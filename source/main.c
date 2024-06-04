@@ -72,6 +72,10 @@ void move_mine(Board *board, Cell *cell)
 			get_cell_neighbours(board, c, neighbours);
 			for (i = 0; i < NEIGHBOUR_SIZE; i++)
 			{
+				if (neighbours[i] == -1)
+				{
+					continue;
+				}
 				board->cells[neighbours[i]].number++;
 			}
 			moved = true;
@@ -87,6 +91,10 @@ void move_mine(Board *board, Cell *cell)
 	get_cell_neighbours(board, cell, neighbours);
 	for (i = 0; i < NEIGHBOUR_SIZE; i++)
 	{
+		if (neighbours[i] == -1)
+		{
+			continue;
+		}
 		board->cells[neighbours[i]].number++;
 	}
 }
@@ -106,6 +114,10 @@ void open_multiple(Board *board, Cell *cell)
 		get_cell_neighbours(board, poppedCell, neighbours);
 		for (i = 0; i < NEIGHBOUR_SIZE; i++)
 		{
+			if (neighbours[i] == -1)
+			{
+				continue;
+			}
 			Cell *neighbourCell = &board->cells[neighbours[i]];
 			if (neighbourCell->isFlagged || neighbourCell->isOpen)
 			{
@@ -185,8 +197,8 @@ int main()
 {
 	REG_DISPCNT = DCNT_MODE3 | DCNT_BG2;
 
-	int maxX = 5;
-	int maxY = 5;
+	int maxX = 16;
+	int maxY = 16;
 
 	Cell cells[maxY][maxX];
 	int x;
@@ -207,7 +219,7 @@ int main()
 	b.flagsPlaced = 0;
 	b.gameOver = false;
 	b.hitMine = false;
-	b.minesCount = 2;
+	b.minesCount = 40;
 	b.nonMineCellsOpened = 0;
 	b.cells = &cells[0][0];
 	b.clicks = 0;
