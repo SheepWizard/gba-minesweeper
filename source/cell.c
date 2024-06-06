@@ -15,15 +15,15 @@
 #include "assets/cell_minehit.h"
 #include "assets/cell_wrongflag.h"
 
-void create_cell(int x, int y, int number, int isMine, Cell *myCell)
+void create_cell(int x, int y, Cell *cell)
 {
-  myCell->x = x;
-  myCell->y = y;
-  myCell->number = number;
-  myCell->isMine = isMine;
-  myCell->isFlagged = false;
-  myCell->isOpen = false;
-  myCell->mineHit = false;
+  cell->x = x;
+  cell->y = y;
+  cell->number = 0;
+  cell->isMine = false;
+  cell->isFlagged = false;
+  cell->isOpen = false;
+  cell->mineHit = false;
 }
 
 void draw_cell(Cell *inCell)

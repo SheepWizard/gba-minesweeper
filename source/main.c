@@ -54,7 +54,6 @@ void get_cell_neighbours(Board *inBoard, Cell *inCell, int *outCells)
 
 void move_mine(Board *board, Cell *cell)
 {
-	mgba_printf(logLevel, "Move");
 	int y, x;
 	bool moved = false;
 	for (y = 0; y < board->maxY; y++)
@@ -63,7 +62,7 @@ void move_mine(Board *board, Cell *cell)
 		{
 			int i;
 			Cell *cells = board->cells;
-			Cell *c = &cells[y * board->maxX + x];
+			Cell *c = &cells[y * board->maxY + x];
 			if (c->isMine == true)
 			{
 				continue;
@@ -151,6 +150,68 @@ void flag_cell(Board *board, Cell *cell)
 	}
 }
 
+void new_game(Board *board, int maxX, int maxY, int minesCount)
+{
+	if (maxX * maxY <= minesCount)
+	{
+		minesCount = maxX * maxY - 1;
+	}
+	board->maxX = maxX;
+	board->maxY = maxY;
+	board->clicks = 0;
+	board->flagsPlaced = 0;
+	board->gameOver = false;
+	board->minesCount = minesCount;
+	board->nonMineCellsOpened = 0;
+
+	Cell *cells = malloc(sizeof(Cell) * (maxY * maxX)); //[maxY][maxX];
+	int x;
+	int y;
+	for (y = 0; y < maxY; y++)
+	{
+		for (x = 0; x < maxX; x++)
+		{
+			create_cell(x, y, &cells[y * maxY + x]);
+		}
+	}
+
+	board->cells = cells;
+
+	int nonRepeatingNumbersList[minesCount];
+	non_repeating_numbers(maxX * maxY, minesCount, nonRepeatingNumbersList);
+
+	int i;
+	for (i = 0; i < minesCount; i++)
+	{
+		Cell *mineCell = &board->cells[nonRepeatingNumbersList[i]];
+		mineCell->isMine = true;
+		int neighbours[NEIGHBOUR_SIZE];
+		get_cell_neighbours(board, mineCell, neighbours);
+		int j;
+		for (j = 0; j < NEIGHBOUR_SIZE; j++)
+		{
+			if (neighbours[j] == -1)
+			{
+				continue;
+			}
+			board->cells[neighbours[j]].number++;
+		}
+	}
+
+	for (y = 0; y < maxY; y++)
+	{
+		for (x = 0; x < maxX; x++)
+		{
+			draw_cell(&board->cells[y * maxY + x]);
+		}
+	}
+}
+
+void free_board(Board *board)
+{
+	free(board->cells);
+}
+
 void end_game(Board *board, bool hasWon)
 {
 	int x, y;
@@ -233,60 +294,62 @@ int main()
 {
 	REG_DISPCNT = DCNT_MODE3 | DCNT_BG2;
 
-	int maxX = 9;
-	int maxY = 9;
+	// int maxX = 9;
+	// int maxY = 9;
 
-	Cell cells[maxY][maxX];
-	int x;
-	int y;
-	for (y = 0; y < maxY; y++)
-	{
-		for (x = 0; x < maxX; x++)
-		{
-			Cell c;
-			create_cell(x, y, 0, 0, &c);
-			cells[y][x] = c;
-		}
-	}
+	// Cell cells[maxY][maxX];
+	// int x;
+	// int y;
+	// for (y = 0; y < maxY; y++)
+	// {
+	// 	for (x = 0; x < maxX; x++)
+	// 	{
+	// 		Cell c;
+	// 		create_cell(x, y, 0, 0, &c);
+	// 		cells[y][x] = c;
+	// 	}
+	// }
 
-	Board b;
-	b.maxX = maxX;
-	b.maxY = maxY;
-	b.flagsPlaced = 0;
-	b.gameOver = false;
-	b.hitMine = false;
-	b.minesCount = 10;
-	b.nonMineCellsOpened = 0;
-	b.cells = &cells[0][0];
-	b.clicks = 0;
+	// Board b;
+	// b.maxX = maxX;
+	// b.maxY = maxY;
+	// b.flagsPlaced = 0;
+	// b.gameOver = false;
+	// b.minesCount = 10;
+	// b.nonMineCellsOpened = 0;
+	// b.cells = &cells[0][0];
+	// b.clicks = 0;
 
-	int nonRepeatingNumbersList[b.minesCount];
-	non_repeating_numbers(b.maxX * b.maxY, b.minesCount, nonRepeatingNumbersList);
+	// int nonRepeatingNumbersList[b.minesCount];
+	// non_repeating_numbers(b.maxX * b.maxY, b.minesCount, nonRepeatingNumbersList);
 
-	int i;
-	for (i = 0; i < b.minesCount; i++)
-	{
-		b.cells[nonRepeatingNumbersList[i]].isMine = true;
-		int neighbours[NEIGHBOUR_SIZE];
-		get_cell_neighbours(&b, &b.cells[nonRepeatingNumbersList[i]], neighbours);
-		int j;
-		for (j = 0; j < NEIGHBOUR_SIZE; j++)
-		{
-			if (neighbours[j] == -1)
-			{
-				continue;
-			}
-			b.cells[neighbours[j]].number++;
-		}
-	}
+	// int i;
+	// for (i = 0; i < b.minesCount; i++)
+	// {
+	// 	b.cells[nonRepeatingNumbersList[i]].isMine = true;
+	// 	int neighbours[NEIGHBOUR_SIZE];
+	// 	get_cell_neighbours(&b, &b.cells[nonRepeatingNumbersList[i]], neighbours);
+	// 	int j;
+	// 	for (j = 0; j < NEIGHBOUR_SIZE; j++)
+	// 	{
+	// 		if (neighbours[j] == -1)
+	// 		{
+	// 			continue;
+	// 		}
+	// 		b.cells[neighbours[j]].number++;
+	// 	}
+	// }
 
-	for (y = 0; y < b.maxY; y++)
-	{
-		for (x = 0; x < b.maxX; x++)
-		{
-			draw_cell(&b.cells[y * b.maxX + x]);
-		}
-	}
+	// for (y = 0; y < b.maxY; y++)
+	// {
+	// 	for (x = 0; x < b.maxX; x++)
+	// 	{
+	// 		draw_cell(&b.cells[y * b.maxX + x]);
+	// 	}
+	// }
+
+	Board *b = malloc(sizeof(Board));
+	new_game(b, 16, 16, 40);
 
 	int frameX = 0,
 			frameY = 0;
@@ -298,7 +361,7 @@ int main()
 	{
 		vid_vsync();
 		key_poll();
-		if (!b.gameOver)
+		if (!b->gameOver)
 		{
 			if (key_hit(KEY_RIGHT))
 			{
@@ -318,38 +381,43 @@ int main()
 			}
 			if (key_released(KEY_A))
 			{
-				open_cell(&b, &b.cells[frameY * b.maxX + frameX]);
-				draw_cell(&b.cells[oldFrameY * b.maxX + oldFrameX]);
+				open_cell(b, &b->cells[frameY * b->maxY + frameX]);
+				draw_cell(&b->cells[oldFrameY * b->maxY + oldFrameX]);
 				m3_frame(frameX * CELL_SIZE, frameY * CELL_SIZE, frameX * CELL_SIZE + CELL_SIZE, frameY * CELL_SIZE + CELL_SIZE, CLR_RED);
 			}
 			if (key_hit(KEY_B))
 			{
 				mgba_printf(logLevel, "Mine");
-				flag_cell(&b, &b.cells[frameY * b.maxX + frameX]);
-				draw_cell(&b.cells[frameY * b.maxX + frameX]);
+				flag_cell(b, &b->cells[frameY * b->maxY + frameX]);
+				draw_cell(&b->cells[frameY * b->maxY + frameX]);
 				m3_frame(frameX * CELL_SIZE, frameY * CELL_SIZE, frameX * CELL_SIZE + CELL_SIZE, frameY * CELL_SIZE + CELL_SIZE, CLR_RED);
 			}
 		}
-		if (frameX >= b.maxX)
+		if (key_hit(KEY_SELECT))
+		{
+			free_board(b);
+			new_game(b, 16, 16, 40);
+		}
+		if (frameX >= b->maxX)
 		{
 			frameX = 0;
 		}
 		if (frameX < 0)
 		{
-			frameX = b.maxX - 1;
+			frameX = b->maxX - 1;
 		}
-		if (frameY >= b.maxY)
+		if (frameY >= b->maxY)
 		{
 			frameY = 0;
 		}
 		if (frameY < 0)
 		{
-			frameY = b.maxY - 1;
+			frameY = b->maxY - 1;
 		}
 
 		if (oldFrameX != frameX || oldFrameY != frameY)
 		{
-			draw_cell(&b.cells[oldFrameY * b.maxX + oldFrameX]);
+			draw_cell(&b->cells[oldFrameY * b->maxY + oldFrameX]);
 			m3_frame(frameX * CELL_SIZE, frameY * CELL_SIZE, frameX * CELL_SIZE + CELL_SIZE, frameY * CELL_SIZE + CELL_SIZE, CLR_RED);
 			oldFrameX = frameX;
 			oldFrameY = frameY;
