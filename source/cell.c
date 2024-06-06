@@ -12,6 +12,8 @@
 #include "assets/cell_open.h"
 #include "assets/cell_mine.h"
 #include "assets/cell_flag.h"
+#include "assets/cell_minehit.h"
+#include "assets/cell_wrongflag.h"
 
 void create_cell(int x, int y, int number, int isMine, Cell *myCell)
 {
@@ -19,8 +21,9 @@ void create_cell(int x, int y, int number, int isMine, Cell *myCell)
   myCell->y = y;
   myCell->number = number;
   myCell->isMine = isMine;
-  myCell->isFlagged = 0;
-  myCell->isOpen = 0;
+  myCell->isFlagged = false;
+  myCell->isOpen = false;
+  myCell->mineHit = false;
 }
 
 void draw_cell(Cell *inCell)
@@ -32,7 +35,18 @@ void draw_cell(Cell *inCell)
   {
     if (inCell->isMine)
     {
-      cellImage = cell_mineBitmap;
+      if (inCell->mineHit)
+      {
+        cellImage = cell_minehitBitmap;
+      }
+      else
+      {
+        cellImage = cell_mineBitmap;
+      }
+    }
+    else if (inCell->isFlagged && !inCell->isMine)
+    {
+      cellImage = cell_wrongflagBitmap;
     }
     else
     {

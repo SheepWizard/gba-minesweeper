@@ -52,9 +52,9 @@ void get_cell_neighbours(Board *inBoard, Cell *inCell, int *outCells)
 	}
 }
 
-// test me
 void move_mine(Board *board, Cell *cell)
 {
+	mgba_printf(logLevel, "Move");
 	int y, x;
 	bool moved = false;
 	for (y = 0; y < board->maxY; y++)
@@ -62,12 +62,13 @@ void move_mine(Board *board, Cell *cell)
 		for (x = 0; x < board->maxX; x++)
 		{
 			int i;
-			Cell *c = board->cells;
-			if (c[y * board->maxX + x].isMine == true)
+			Cell *cells = board->cells;
+			Cell *c = &cells[y * board->maxX + x];
+			if (c->isMine == true)
 			{
 				continue;
 			}
-			c[y * board->maxX + x].isMine = true;
+			c->isMine = true;
 			int neighbours[NEIGHBOUR_SIZE];
 			get_cell_neighbours(board, c, neighbours);
 			for (i = 0; i < NEIGHBOUR_SIZE; i++)
@@ -79,6 +80,7 @@ void move_mine(Board *board, Cell *cell)
 				board->cells[neighbours[i]].number++;
 			}
 			moved = true;
+			break;
 		}
 		if (moved)
 		{
@@ -86,7 +88,7 @@ void move_mine(Board *board, Cell *cell)
 		}
 	}
 	int i;
-	cell->isMine = true;
+	cell->isMine = false;
 	int neighbours[NEIGHBOUR_SIZE];
 	get_cell_neighbours(board, cell, neighbours);
 	for (i = 0; i < NEIGHBOUR_SIZE; i++)
@@ -95,7 +97,7 @@ void move_mine(Board *board, Cell *cell)
 		{
 			continue;
 		}
-		board->cells[neighbours[i]].number++;
+		board->cells[neighbours[i]].number--;
 	}
 }
 
@@ -149,12 +151,46 @@ void flag_cell(Board *board, Cell *cell)
 	}
 }
 
+void end_game(Board *board, bool hasWon)
+{
+	int x, y;
+	board->gameOver = true;
+	if (hasWon)
+	{
+		for (y = 0; y < board->maxY; y++)
+		{
+			for (x = 0; x < board->maxX; x++)
+			{
+				Cell *c = &board->cells[y * board->maxY + x];
+				if (!c->isOpen)
+				{
+					c->isFlagged = true;
+					draw_cell(c);
+				}
+			}
+		}
+	}
+	else
+	{
+		for (y = 0; y < board->maxY; y++)
+		{
+			for (x = 0; x < board->maxX; x++)
+			{
+				Cell *c = &board->cells[y * board->maxY + x];
+				c->isOpen = true;
+				draw_cell(c);
+			}
+		}
+	}
+}
+
 void check_win(Board *board)
 {
 	if (board->nonMineCellsOpened < (board->maxX * board->maxY) - board->minesCount)
 	{
 		return;
 	}
+	end_game(board, true);
 	mgba_printf(logLevel, "Winner");
 }
 
@@ -178,7 +214,8 @@ void open_cell(Board *board, Cell *cell)
 	}
 	if (cell->isMine)
 	{
-		// game over
+		cell->mineHit = true;
+		end_game(board, false);
 		return;
 	}
 
@@ -196,8 +233,8 @@ int main()
 {
 	REG_DISPCNT = DCNT_MODE3 | DCNT_BG2;
 
-	int maxX = 16;
-	int maxY = 16;
+	int maxX = 9;
+	int maxY = 9;
 
 	Cell cells[maxY][maxX];
 	int x;
@@ -218,7 +255,7 @@ int main()
 	b.flagsPlaced = 0;
 	b.gameOver = false;
 	b.hitMine = false;
-	b.minesCount = 40;
+	b.minesCount = 10;
 	b.nonMineCellsOpened = 0;
 	b.cells = &cells[0][0];
 	b.clicks = 0;
@@ -261,34 +298,37 @@ int main()
 	{
 		vid_vsync();
 		key_poll();
-		if (key_hit(KEY_RIGHT))
+		if (!b.gameOver)
 		{
-			frameX++;
-		}
-		if (key_hit(KEY_LEFT))
-		{
-			frameX--;
-		}
-		if (key_hit(KEY_UP))
-		{
-			frameY--;
-		}
-		if (key_hit(KEY_DOWN))
-		{
-			frameY++;
-		}
-		if (key_hit(KEY_A))
-		{
-			open_cell(&b, &b.cells[frameY * b.maxX + frameX]);
-			draw_cell(&b.cells[oldFrameY * b.maxX + oldFrameX]);
-			m3_frame(frameX * CELL_SIZE, frameY * CELL_SIZE, frameX * CELL_SIZE + CELL_SIZE, frameY * CELL_SIZE + CELL_SIZE, CLR_RED);
-		}
-		if (key_hit(KEY_B))
-		{
-			mgba_printf(logLevel, "Mine");
-			flag_cell(&b, &b.cells[frameY * b.maxX + frameX]);
-			draw_cell(&b.cells[frameY * b.maxX + frameX]);
-			m3_frame(frameX * CELL_SIZE, frameY * CELL_SIZE, frameX * CELL_SIZE + CELL_SIZE, frameY * CELL_SIZE + CELL_SIZE, CLR_RED);
+			if (key_hit(KEY_RIGHT))
+			{
+				frameX++;
+			}
+			if (key_hit(KEY_LEFT))
+			{
+				frameX--;
+			}
+			if (key_hit(KEY_UP))
+			{
+				frameY--;
+			}
+			if (key_hit(KEY_DOWN))
+			{
+				frameY++;
+			}
+			if (key_released(KEY_A))
+			{
+				open_cell(&b, &b.cells[frameY * b.maxX + frameX]);
+				draw_cell(&b.cells[oldFrameY * b.maxX + oldFrameX]);
+				m3_frame(frameX * CELL_SIZE, frameY * CELL_SIZE, frameX * CELL_SIZE + CELL_SIZE, frameY * CELL_SIZE + CELL_SIZE, CLR_RED);
+			}
+			if (key_hit(KEY_B))
+			{
+				mgba_printf(logLevel, "Mine");
+				flag_cell(&b, &b.cells[frameY * b.maxX + frameX]);
+				draw_cell(&b.cells[frameY * b.maxX + frameX]);
+				m3_frame(frameX * CELL_SIZE, frameY * CELL_SIZE, frameX * CELL_SIZE + CELL_SIZE, frameY * CELL_SIZE + CELL_SIZE, CLR_RED);
+			}
 		}
 		if (frameX >= b.maxX)
 		{

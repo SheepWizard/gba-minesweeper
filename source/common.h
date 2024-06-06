@@ -12,6 +12,7 @@ typedef struct Cell
   bool isMine;
   bool isFlagged;
   bool isOpen;
+  bool mineHit;
 } Cell;
 
 typedef struct Board
