@@ -46,6 +46,12 @@ Selector update_selector(Board *board)
   return selector;
 }
 
+void reset_selector()
+{
+  posX = 0;
+  posY = 0;
+}
+
 void draw_selector()
 {
   m3_frame(posX * CELL_SIZE, posY * CELL_SIZE, posX * CELL_SIZE + CELL_SIZE, posY * CELL_SIZE + CELL_SIZE, CLR_PURPLE);

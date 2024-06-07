@@ -1,5 +1,8 @@
 #pragma once
 #include "common.h"
+#include "selector.h"
+#include "cell.h"
+#include <stdlib.h>
 
 typedef struct Board
 {
@@ -13,4 +16,6 @@ typedef struct Board
   int clicks;
 } Board;
 
-void update_board();
+void update_board(Board *board);
+void free_board(Board *board);
+void new_board(Board *board, int maxX, int maxY, int minesCount);
