@@ -26,6 +26,16 @@ void create_cell(int x, int y, Cell *cell)
   cell->mineHit = false;
 }
 
+void flag_cell(Cell *cell)
+{
+  if (cell->isOpen)
+  {
+    return;
+  }
+
+  cell->isFlagged = cell->isFlagged ? false : true;
+}
+
 void draw_cell(Cell *inCell)
 {
 

@@ -14,15 +14,3 @@ typedef struct Cell
   bool isOpen;
   bool mineHit;
 } Cell;
-
-typedef struct Board
-{
-  Cell *cells;
-  int maxX;
-  int maxY;
-  int minesCount;
-  int flagsPlaced;
-  int nonMineCellsOpened;
-  bool gameOver;
-  int clicks;
-} Board;

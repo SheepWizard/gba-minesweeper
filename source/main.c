@@ -7,6 +7,8 @@
 #include <string.h>
 #include "cell.h"
 #include <stdlib.h>
+#include "selector.h"
+#include "board.h"
 
 LogLevel logLevel = LOG_INFO;
 
@@ -136,22 +138,12 @@ void open_multiple(Board *board, Cell *cell)
 	}
 }
 
-void flag_cell(Board *board, Cell *cell)
+void flag_button_pressed(Board *board, Cell *cell)
 {
-	if (cell->isOpen)
-	{
-		return;
-	}
-	if (cell->isFlagged)
-	{
-		cell->isFlagged = false;
-		board->flagsPlaced--;
-	}
-	else
-	{
-		cell->isFlagged = true;
-		board->flagsPlaced++;
-	}
+	flag_cell(cell);
+	draw_cell(cell);
+	draw_selector();
+	cell->isFlagged ? board->flagsPlaced++ : board->flagsPlaced--;
 }
 
 void new_game(Board *board, int maxX, int maxY, int minesCount)
@@ -330,108 +322,35 @@ void chord(Board *board, Cell *cell)
 int main()
 {
 	REG_DISPCNT = DCNT_MODE3 | DCNT_BG2;
-
-	// int maxX = 9;
-	// int maxY = 9;
-
-	// Cell cells[maxY][maxX];
-	// int x;
-	// int y;
-	// for (y = 0; y < maxY; y++)
-	// {
-	// 	for (x = 0; x < maxX; x++)
-	// 	{
-	// 		Cell c;
-	// 		create_cell(x, y, 0, 0, &c);
-	// 		cells[y][x] = c;
-	// 	}
-	// }
-
-	// Board b;
-	// b.maxX = maxX;
-	// b.maxY = maxY;
-	// b.flagsPlaced = 0;
-	// b.gameOver = false;
-	// b.minesCount = 10;
-	// b.nonMineCellsOpened = 0;
-	// b.cells = &cells[0][0];
-	// b.clicks = 0;
-
-	// int nonRepeatingNumbersList[b.minesCount];
-	// non_repeating_numbers(b.maxX * b.maxY, b.minesCount, nonRepeatingNumbersList);
-
-	// int i;
-	// for (i = 0; i < b.minesCount; i++)
-	// {
-	// 	b.cells[nonRepeatingNumbersList[i]].isMine = true;
-	// 	int neighbours[NEIGHBOUR_SIZE];
-	// 	get_cell_neighbours(&b, &b.cells[nonRepeatingNumbersList[i]], neighbours);
-	// 	int j;
-	// 	for (j = 0; j < NEIGHBOUR_SIZE; j++)
-	// 	{
-	// 		if (neighbours[j] == -1)
-	// 		{
-	// 			continue;
-	// 		}
-	// 		b.cells[neighbours[j]].number++;
-	// 	}
-	// }
-
-	// for (y = 0; y < b.maxY; y++)
-	// {
-	// 	for (x = 0; x < b.maxX; x++)
-	// 	{
-	// 		draw_cell(&b.cells[y * b.maxX + x]);
-	// 	}
-	// }
-
+	m3_fill(CLR_BLUE);
 	Board *b = malloc(sizeof(Board));
 	new_game(b, 16, 16, 40);
 
-	int frameX = 0,
-			frameY = 0;
-
-	int oldFrameX = frameX;
-	int oldFrameY = frameY;
-	m3_frame(frameX * CELL_SIZE, frameY * CELL_SIZE, frameX * CELL_SIZE + CELL_SIZE, frameY * CELL_SIZE + CELL_SIZE, CLR_RED);
+	Selector oldSelector;
+	oldSelector.posX = 0;
+	oldSelector.posY = 0;
+	draw_selector();
 	while (1)
 	{
 		vid_vsync();
 		key_poll();
+		Selector selector = update_selector(b);
 		if (!b->gameOver)
 		{
-			if (key_hit(KEY_RIGHT))
-			{
-				frameX++;
-			}
-			if (key_hit(KEY_LEFT))
-			{
-				frameX--;
-			}
-			if (key_hit(KEY_UP))
-			{
-				frameY--;
-			}
-			if (key_hit(KEY_DOWN))
-			{
-				frameY++;
-			}
+			Cell *currentCell = &b->cells[selector.posY * b->maxY + selector.posX];
 			if (key_released(KEY_A))
 			{
-				open_cell(b, &b->cells[frameY * b->maxY + frameX]);
-				draw_cell(&b->cells[oldFrameY * b->maxY + oldFrameX]);
-				m3_frame(frameX * CELL_SIZE, frameY * CELL_SIZE, frameX * CELL_SIZE + CELL_SIZE, frameY * CELL_SIZE + CELL_SIZE, CLR_RED);
+				open_cell(b, currentCell);
+				draw_cell(currentCell);
+				draw_selector();
 			}
 			if (key_hit(KEY_B))
 			{
-				mgba_printf(logLevel, "Mine");
-				flag_cell(b, &b->cells[frameY * b->maxY + frameX]);
-				draw_cell(&b->cells[frameY * b->maxY + frameX]);
-				m3_frame(frameX * CELL_SIZE, frameY * CELL_SIZE, frameX * CELL_SIZE + CELL_SIZE, frameY * CELL_SIZE + CELL_SIZE, CLR_RED);
+				flag_button_pressed(b, currentCell);
 			}
 			if (key_hit(KEY_R))
 			{
-				chord(b, &b->cells[frameY * b->maxY + frameX]);
+				chord(b, currentCell);
 			}
 		}
 		if (key_hit(KEY_SELECT))
@@ -439,29 +358,12 @@ int main()
 			free_board(b);
 			new_game(b, 16, 16, 40);
 		}
-		if (frameX >= b->maxX)
-		{
-			frameX = 0;
-		}
-		if (frameX < 0)
-		{
-			frameX = b->maxX - 1;
-		}
-		if (frameY >= b->maxY)
-		{
-			frameY = 0;
-		}
-		if (frameY < 0)
-		{
-			frameY = b->maxY - 1;
-		}
 
-		if (oldFrameX != frameX || oldFrameY != frameY)
+		if (oldSelector.posX != selector.posX || oldSelector.posY != selector.posY)
 		{
-			draw_cell(&b->cells[oldFrameY * b->maxY + oldFrameX]);
-			m3_frame(frameX * CELL_SIZE, frameY * CELL_SIZE, frameX * CELL_SIZE + CELL_SIZE, frameY * CELL_SIZE + CELL_SIZE, CLR_RED);
-			oldFrameX = frameX;
-			oldFrameY = frameY;
+			draw_cell(&b->cells[oldSelector.posY * b->maxY + oldSelector.posX]);
+			draw_selector();
+			oldSelector = selector;
 		}
 	}
 
