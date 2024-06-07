@@ -138,6 +138,10 @@ void open_multiple(Board *board, Cell *cell)
 
 void flag_cell(Board *board, Cell *cell)
 {
+	if (cell->isOpen)
+	{
+		return;
+	}
 	if (cell->isFlagged)
 	{
 		cell->isFlagged = false;
@@ -290,6 +294,39 @@ void open_cell(Board *board, Cell *cell)
 	check_win(board);
 }
 
+void chord(Board *board, Cell *cell)
+{
+	int i, flagCount = 0;
+	int neighbours[NEIGHBOUR_SIZE];
+	get_cell_neighbours(board, cell, neighbours);
+	for (i = 0; i < NEIGHBOUR_SIZE; i++)
+	{
+		if (neighbours[i] == -1)
+		{
+			continue;
+		}
+		if (board->cells[neighbours[i]].isFlagged)
+		{
+			flagCount++;
+		}
+	}
+
+	if (flagCount < cell->number)
+	{
+		return;
+	}
+
+	for (i = 0; i < NEIGHBOUR_SIZE; i++)
+	{
+		if (neighbours[i] == -1)
+		{
+			continue;
+		}
+		open_cell(board, &board->cells[neighbours[i]]);
+		draw_cell(&board->cells[neighbours[i]]);
+	}
+}
+
 int main()
 {
 	REG_DISPCNT = DCNT_MODE3 | DCNT_BG2;
@@ -391,6 +428,10 @@ int main()
 				flag_cell(b, &b->cells[frameY * b->maxY + frameX]);
 				draw_cell(&b->cells[frameY * b->maxY + frameX]);
 				m3_frame(frameX * CELL_SIZE, frameY * CELL_SIZE, frameX * CELL_SIZE + CELL_SIZE, frameY * CELL_SIZE + CELL_SIZE, CLR_RED);
+			}
+			if (key_hit(KEY_R))
+			{
+				chord(b, &b->cells[frameY * b->maxY + frameX]);
 			}
 		}
 		if (key_hit(KEY_SELECT))
