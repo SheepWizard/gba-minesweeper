@@ -104,10 +104,11 @@ void draw_cell(Cell *inCell, int maxX, int maxY)
     cellImage = cell_hiddenBitmap;
   }
 
-  int q = (M3_WIDTH / 2) - (maxX * CELL_SIZE) / 2;
+  int xCenter = (M3_WIDTH / 2) - (maxX * CELL_SIZE) / 2;
+  int yCenter = (M3_HEIGHT / 2) - (maxY * CELL_SIZE) / 2;
 
-  int yOffset = CELL_SIZE * inCell->y;
-  int xOffset = CELL_SIZE * inCell->x + q;
+  int yOffset = CELL_SIZE * inCell->y + yCenter;
+  int xOffset = CELL_SIZE * inCell->x + xCenter;
   int y = 0;
   for (y = 0; y < CELL_SIZE; y++)
   {
