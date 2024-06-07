@@ -11,12 +11,15 @@ LogLevel logLevel = LOG_INFO;
 
 int main()
 {
+	int x = 30;
+	int y = 16;
+	int mines = 40;
 	REG_DISPCNT = DCNT_MODE3 | DCNT_BG2;
-	m3_fill(CLR_BLUE);
+	m3_fill(CLR_ORANGE);
 	Board *b = malloc(sizeof(Board));
-	new_board(b, 16, 16, 40);
+	new_board(b, x, y, mines);
 
-	draw_selector();
+	draw_selector(b->maxX, b->maxY);
 	while (1)
 	{
 		vid_vsync();
@@ -26,9 +29,9 @@ int main()
 		if (key_hit(KEY_SELECT))
 		{
 			free_board(b);
-			new_board(b, 16, 16, 40);
+			new_board(b, x, y, mines);
 			reset_selector();
-			draw_selector();
+			draw_selector(b->maxX, b->maxY);
 		}
 	}
 

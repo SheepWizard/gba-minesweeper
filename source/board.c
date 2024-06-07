@@ -54,7 +54,7 @@ static void move_mine(Board *board, Cell *cell)
     {
       int i;
       Cell *cells = board->cells;
-      Cell *c = &cells[y * board->maxY + x];
+      Cell *c = &cells[y * board->maxX + x];
       if (c->isMine == true)
       {
         continue;
@@ -94,7 +94,7 @@ static void move_mine(Board *board, Cell *cell)
 
 static void open_multiple(Board *board, Cell *cell)
 {
-  Cell *stack[board->maxY * board->maxY];
+  Cell *stack[board->maxX * board->maxY];
   int stackTop = -1;
   stackTop++;
   stack[stackTop] = cell;
@@ -123,7 +123,7 @@ static void open_multiple(Board *board, Cell *cell)
         stackTop++;
         stack[stackTop] = neighbourCell;
       }
-      draw_cell(neighbourCell);
+      draw_cell(neighbourCell, board->maxX, board->maxY);
     }
   }
 }
@@ -131,8 +131,8 @@ static void open_multiple(Board *board, Cell *cell)
 static void flag_button_pressed(Board *board, Cell *cell)
 {
   flag_cell(cell);
-  draw_cell(cell);
-  draw_selector();
+  draw_cell(cell, board->maxX, board->maxY);
+  draw_selector(board->maxX, board->maxY);
   cell->isFlagged ? board->flagsPlaced++ : board->flagsPlaced--;
 }
 
@@ -150,14 +150,14 @@ void new_board(Board *board, int maxX, int maxY, int minesCount)
   board->minesCount = minesCount;
   board->nonMineCellsOpened = 0;
 
-  Cell *cells = malloc(sizeof(Cell) * (maxY * maxX)); //[maxY][maxX];
+  Cell *cells = malloc(sizeof(Cell) * (maxY * maxX));
   int x;
   int y;
   for (y = 0; y < maxY; y++)
   {
     for (x = 0; x < maxX; x++)
     {
-      create_cell(x, y, &cells[y * maxY + x]);
+      create_cell(x, y, &cells[y * maxX + x]);
     }
   }
 
@@ -188,7 +188,7 @@ void new_board(Board *board, int maxX, int maxY, int minesCount)
   {
     for (x = 0; x < maxX; x++)
     {
-      draw_cell(&board->cells[y * maxY + x]);
+      draw_cell(&board->cells[y * maxX + x], board->maxX, board->maxY);
     }
   }
 }
@@ -208,11 +208,11 @@ static void end_game(Board *board, bool hasWon)
     {
       for (x = 0; x < board->maxX; x++)
       {
-        Cell *c = &board->cells[y * board->maxY + x];
+        Cell *c = &board->cells[y * board->maxX + x];
         if (!c->isOpen)
         {
           c->isFlagged = true;
-          draw_cell(c);
+          draw_cell(c, board->maxX, board->maxY);
         }
       }
     }
@@ -223,9 +223,9 @@ static void end_game(Board *board, bool hasWon)
     {
       for (x = 0; x < board->maxX; x++)
       {
-        Cell *c = &board->cells[y * board->maxY + x];
+        Cell *c = &board->cells[y * board->maxX + x];
         c->isOpen = true;
-        draw_cell(c);
+        draw_cell(c, board->maxX, board->maxY);
       }
     }
   }
@@ -304,7 +304,7 @@ static void chord(Board *board, Cell *cell)
       continue;
     }
     open_cell(board, &board->cells[neighbours[i]]);
-    draw_cell(&board->cells[neighbours[i]]);
+    draw_cell(&board->cells[neighbours[i]], board->maxX, board->maxY);
   }
 }
 
@@ -315,12 +315,12 @@ void update_board(Board *board)
     return;
   }
   Selector selector = update_selector(board);
-  Cell *currentCell = &board->cells[selector.posY * board->maxY + selector.posX];
+  Cell *currentCell = &board->cells[selector.posY * board->maxX + selector.posX];
   if (key_released(KEY_A))
   {
     open_cell(board, currentCell);
-    draw_cell(currentCell);
-    draw_selector();
+    draw_cell(currentCell, board->maxX, board->maxY);
+    draw_selector(board->maxX, board->maxY);
   }
   if (key_hit(KEY_B))
   {
@@ -332,8 +332,8 @@ void update_board(Board *board)
   }
   if (oldSelector.posX != selector.posX || oldSelector.posY != selector.posY)
   {
-    draw_cell(&board->cells[oldSelector.posY * board->maxY + oldSelector.posX]);
-    draw_selector();
+    draw_cell(&board->cells[oldSelector.posY * board->maxX + oldSelector.posX], board->maxX, board->maxY);
+    draw_selector(board->maxX, board->maxY);
     oldSelector = selector;
   }
 }

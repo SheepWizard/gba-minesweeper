@@ -13,5 +13,5 @@ typedef struct Selector
 } Selector;
 
 Selector update_selector(struct Board *board);
-void draw_selector();
+void draw_selector(int maxX, int maxY);
 void reset_selector();

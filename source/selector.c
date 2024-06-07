@@ -52,7 +52,8 @@ void reset_selector()
   posY = 0;
 }
 
-void draw_selector()
+void draw_selector(int maxX, int maxY)
 {
-  m3_frame(posX * CELL_SIZE, posY * CELL_SIZE, posX * CELL_SIZE + CELL_SIZE, posY * CELL_SIZE + CELL_SIZE, CLR_PURPLE);
+  int xOffset = (M3_WIDTH / 2) - (maxX * CELL_SIZE) / 2;
+  m3_frame(posX * CELL_SIZE + xOffset, posY * CELL_SIZE, posX * CELL_SIZE + CELL_SIZE + xOffset, posY * CELL_SIZE + CELL_SIZE, CLR_PURPLE);
 }

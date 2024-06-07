@@ -36,7 +36,7 @@ void flag_cell(Cell *cell)
   cell->isFlagged = cell->isFlagged ? false : true;
 }
 
-void draw_cell(Cell *inCell)
+void draw_cell(Cell *inCell, int maxX, int maxY)
 {
 
   const unsigned short *cellImage = cell_hiddenBitmap;
@@ -104,8 +104,10 @@ void draw_cell(Cell *inCell)
     cellImage = cell_hiddenBitmap;
   }
 
+  int q = (M3_WIDTH / 2) - (maxX * CELL_SIZE) / 2;
+
   int yOffset = CELL_SIZE * inCell->y;
-  int xOffset = CELL_SIZE * inCell->x;
+  int xOffset = CELL_SIZE * inCell->x + q;
   int y = 0;
   for (y = 0; y < CELL_SIZE; y++)
   {
