@@ -19,3 +19,14 @@ grit $ASSETS/cell_mine.bmp -gb -gu16
 grit $ASSETS/cell_flag.bmp -gb -gu16
 grit $ASSETS/cell_minehit.bmp -gb -gu16
 grit $ASSETS/cell_wrongflag.bmp -gb -gu16
+grit $ASSETS/number_0.bmp -gb -gu16
+grit $ASSETS/number_1.bmp -gb -gu16
+grit $ASSETS/number_2.bmp -gb -gu16
+grit $ASSETS/number_3.bmp -gb -gu16
+grit $ASSETS/number_4.bmp -gb -gu16
+grit $ASSETS/number_5.bmp -gb -gu16
+grit $ASSETS/number_6.bmp -gb -gu16
+grit $ASSETS/number_7.bmp -gb -gu16
+grit $ASSETS/number_8.bmp -gb -gu16
+grit $ASSETS/number_9.bmp -gb -gu16
+grit $ASSETS/number_blank.bmp -gb -gu16
