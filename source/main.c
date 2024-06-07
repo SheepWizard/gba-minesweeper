@@ -6,18 +6,16 @@
 #include "tonc.h"
 #include "selector.h"
 #include "board.h"
-#include "dotDisplay.h"
 
 LogLevel logLevel = LOG_INFO;
 
 int main()
 {
-	int x = 30;
+	int x = 16;
 	int y = 16;
 	int mines = 40;
 	REG_DISPCNT = DCNT_MODE3 | DCNT_BG2;
 	m3_fill(CLR_ORANGE);
-	draw_number(0, 0, 0);
 	Board *b = malloc(sizeof(Board));
 	new_board(b, x, y, mines);
 

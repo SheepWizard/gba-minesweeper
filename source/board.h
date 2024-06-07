@@ -2,6 +2,7 @@
 #include "common.h"
 #include "selector.h"
 #include "cell.h"
+#include "dotDisplay.h"
 #include <stdlib.h>
 
 typedef struct Board

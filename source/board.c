@@ -134,6 +134,7 @@ static void flag_button_pressed(Board *board, Cell *cell)
   draw_cell(cell, board->maxX, board->maxY);
   draw_selector(board->maxX, board->maxY);
   cell->isFlagged ? board->flagsPlaced++ : board->flagsPlaced--;
+  draw_dot_display(board->minesCount - board->flagsPlaced);
 }
 
 void new_board(Board *board, int maxX, int maxY, int minesCount)
@@ -191,6 +192,7 @@ void new_board(Board *board, int maxX, int maxY, int minesCount)
       draw_cell(&board->cells[y * maxX + x], board->maxX, board->maxY);
     }
   }
+  draw_dot_display(board->minesCount - board->flagsPlaced);
 }
 
 void free_board(Board *board)
@@ -216,6 +218,7 @@ static void end_game(Board *board, bool hasWon)
         }
       }
     }
+    draw_dot_display(board->minesCount - board->flagsPlaced);
   }
   else
   {
