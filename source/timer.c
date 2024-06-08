@@ -1,6 +1,6 @@
 #include "timer.h"
 
-static u32 time = 0;
+static int time = 0;
 static int vblankCount = 0;
 static bool running = false;
 
@@ -10,7 +10,7 @@ void start_timer()
   running = true;
 }
 
-u32 read_timer()
+int read_timer()
 {
   if (!running)
   {
