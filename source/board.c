@@ -263,8 +263,6 @@ static void open_cell(Board *board, Cell *cell)
     if (cell->isMine)
     {
       move_mine(board, cell);
-      open_cell(board, cell);
-      return;
     }
     start_timer();
   }
@@ -280,6 +278,7 @@ static void open_cell(Board *board, Cell *cell)
   cell->isOpen = true;
   if (cell->number == 0)
   {
+    mgba_printf(LOG_INFO, "open multiple");
     open_multiple(board, cell);
   }
   check_win(board);
@@ -336,6 +335,8 @@ void update_board(Board *board)
   }
   Selector selector = update_selector(board);
   Cell *currentCell = &board->cells[selector.posY * board->maxX + selector.posX];
+
+  // mgba_printf(LOG_INFO, "%d", board->cells[31].number);
 
   if (key_is_down(KEY_A))
   {

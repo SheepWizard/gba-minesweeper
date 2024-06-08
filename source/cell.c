@@ -1,5 +1,6 @@
 #include "common.h"
 #include <string.h>
+#include "cell.h"
 #include "assets/cell_hidden.h"
 #include "assets/cell_1.h"
 #include "assets/cell_2.h"
