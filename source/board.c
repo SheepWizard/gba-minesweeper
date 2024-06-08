@@ -193,6 +193,7 @@ void new_board(Board *board, int maxX, int maxY, int minesCount)
       draw_cell(&board->cells[y * maxX + x], board->maxX, board->maxY);
     }
   }
+  stop_timer();
   draw_dot_display(board->minesCount - board->flagsPlaced, LEFT);
   draw_dot_display(0, RIGHT);
 }
@@ -353,5 +354,6 @@ void update_board(Board *board)
     draw_selector(board->maxX, board->maxY);
     oldSelector = selector;
   }
+  // Time not updating properly on new game
   update_timer(board);
 }
