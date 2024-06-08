@@ -30,3 +30,7 @@ grit $ASSETS/number_7.bmp -gb -gu16
 grit $ASSETS/number_8.bmp -gb -gu16
 grit $ASSETS/number_9.bmp -gb -gu16
 grit $ASSETS/number_blank.bmp -gb -gu16
+grit $ASSETS/smiley_dead.bmp -gb -gu16
+grit $ASSETS/smiley_oface.bmp -gb -gu16
+grit $ASSETS/smiley_play.bmp -gb -gu16
+grit $ASSETS/smiley_win.bmp -gb -gu16

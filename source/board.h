@@ -4,6 +4,7 @@
 #include "cell.h"
 #include "dotDisplay.h"
 #include "timer.h"
+#include "smile.h"
 #include <stdlib.h>
 
 typedef struct Board

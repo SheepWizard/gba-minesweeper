@@ -194,6 +194,7 @@ void new_board(Board *board, int maxX, int maxY, int minesCount)
     }
   }
   stop_timer();
+  draw_smile(SMILE_PLAY);
   draw_dot_display(board->minesCount - board->flagsPlaced, LEFT);
   draw_dot_display(0, RIGHT);
 }
@@ -223,6 +224,7 @@ static void end_game(Board *board, bool hasWon)
       }
     }
     draw_dot_display(board->minesCount - board->flagsPlaced, LEFT);
+    draw_smile(SMILE_WIN);
   }
   else
   {
@@ -235,6 +237,7 @@ static void end_game(Board *board, bool hasWon)
         draw_cell(c, board->maxX, board->maxY);
       }
     }
+    draw_smile(SMILE_DEAD);
   }
 }
 
@@ -334,8 +337,17 @@ void update_board(Board *board)
   Selector selector = update_selector(board);
   Cell *currentCell = &board->cells[selector.posY * board->maxX + selector.posX];
 
+  if (key_is_down(KEY_A))
+  {
+    if (!currentCell->isOpen)
+    {
+      // Does this keep drawing?
+      draw_smile(SMILE_OFACE);
+    }
+  }
   if (key_released(KEY_A))
   {
+    draw_smile(SMILE_PLAY);
     open_cell(board, currentCell);
     draw_cell(currentCell, board->maxX, board->maxY);
     draw_selector(board->maxX, board->maxY);

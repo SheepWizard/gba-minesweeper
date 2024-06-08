@@ -1,3 +1,4 @@
+#pragma once
 #include "tonc.h"
 
 void start_timer();
