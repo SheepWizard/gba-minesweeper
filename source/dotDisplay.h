@@ -2,4 +2,10 @@
 #include <string.h>
 #include "tonc.h"
 
-void draw_dot_display(int number);
+enum DotDisplaySide
+{
+  LEFT,
+  RIGHT
+};
+
+void draw_dot_display(int number, enum DotDisplaySide side);

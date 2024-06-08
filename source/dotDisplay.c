@@ -60,14 +60,19 @@ static void draw_number(char number, int posX, int posY)
   }
 }
 
-void draw_dot_display(int number)
+void draw_dot_display(int number, enum DotDisplaySide side)
 {
+  mgba_printf(LOG_INFO, "Draw %d", number);
   number = clamp(number, -99, 999);
   char str[4];
   sprintf(str, "%d", number);
   int offset = 3 - strlen(str);
 
   int startX = 0;
+  if (side == RIGHT)
+  {
+    startX = M3_WIDTH - 0 - (NUMBER_WIDTH * 3);
+  }
   int i;
   for (i = 0; i < 3; i++)
   {

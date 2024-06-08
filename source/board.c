@@ -134,7 +134,7 @@ static void flag_button_pressed(Board *board, Cell *cell)
   draw_cell(cell, board->maxX, board->maxY);
   draw_selector(board->maxX, board->maxY);
   cell->isFlagged ? board->flagsPlaced++ : board->flagsPlaced--;
-  draw_dot_display(board->minesCount - board->flagsPlaced);
+  draw_dot_display(board->minesCount - board->flagsPlaced, LEFT);
 }
 
 void new_board(Board *board, int maxX, int maxY, int minesCount)
@@ -150,6 +150,7 @@ void new_board(Board *board, int maxX, int maxY, int minesCount)
   board->gameOver = false;
   board->minesCount = minesCount;
   board->nonMineCellsOpened = 0;
+  board->time = 0;
 
   Cell *cells = malloc(sizeof(Cell) * (maxY * maxX));
   int x;
@@ -192,7 +193,8 @@ void new_board(Board *board, int maxX, int maxY, int minesCount)
       draw_cell(&board->cells[y * maxX + x], board->maxX, board->maxY);
     }
   }
-  draw_dot_display(board->minesCount - board->flagsPlaced);
+  draw_dot_display(board->minesCount - board->flagsPlaced, LEFT);
+  draw_dot_display(0, RIGHT);
 }
 
 void free_board(Board *board)
@@ -204,6 +206,7 @@ static void end_game(Board *board, bool hasWon)
 {
   int x, y;
   board->gameOver = true;
+  stop_timer();
   if (hasWon)
   {
     for (y = 0; y < board->maxY; y++)
@@ -218,7 +221,7 @@ static void end_game(Board *board, bool hasWon)
         }
       }
     }
-    draw_dot_display(board->minesCount - board->flagsPlaced);
+    draw_dot_display(board->minesCount - board->flagsPlaced, LEFT);
   }
   else
   {
@@ -259,7 +262,7 @@ static void open_cell(Board *board, Cell *cell)
       open_cell(board, cell);
       return;
     }
-    // start timer
+    start_timer();
   }
   if (cell->isMine)
   {
@@ -311,6 +314,16 @@ static void chord(Board *board, Cell *cell)
   }
 }
 
+static void update_timer(Board *board)
+{
+  int currentTime = read_timer();
+  if (currentTime != board->time)
+  {
+    board->time = currentTime;
+    draw_dot_display(currentTime, RIGHT);
+  }
+}
+
 void update_board(Board *board)
 {
   if (board->gameOver)
@@ -319,6 +332,7 @@ void update_board(Board *board)
   }
   Selector selector = update_selector(board);
   Cell *currentCell = &board->cells[selector.posY * board->maxX + selector.posX];
+
   if (key_released(KEY_A))
   {
     open_cell(board, currentCell);
@@ -339,4 +353,5 @@ void update_board(Board *board)
     draw_selector(board->maxX, board->maxY);
     oldSelector = selector;
   }
+  update_timer(board);
 }

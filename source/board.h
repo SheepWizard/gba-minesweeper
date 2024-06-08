@@ -3,6 +3,7 @@
 #include "selector.h"
 #include "cell.h"
 #include "dotDisplay.h"
+#include "timer.h"
 #include <stdlib.h>
 
 typedef struct Board
@@ -15,6 +16,7 @@ typedef struct Board
   int nonMineCellsOpened;
   bool gameOver;
   int clicks;
+  int time;
 } Board;
 
 void update_board(Board *board);
