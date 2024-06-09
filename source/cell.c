@@ -108,7 +108,7 @@ void draw_cell(Cell *inCell, int maxX, int maxY)
   int xCenter = (M3_WIDTH / 2) - (maxX * CELL_SIZE) / 2;
   int yCenter = (M3_HEIGHT / 2) - (maxY * CELL_SIZE) / 2;
 
-  int yOffset = CELL_SIZE * inCell->y + yCenter;
+  int yOffset = CELL_SIZE * inCell->y + yCenter + (TOP_PADDING * 2);
   int xOffset = CELL_SIZE * inCell->x + xCenter;
   int y = 0;
   for (y = 0; y < CELL_SIZE; y++)

@@ -1,5 +1,6 @@
 #pragma once
 #include "tonc.h"
+#include "common.h"
 #include <string.h>
 
 enum Smiles

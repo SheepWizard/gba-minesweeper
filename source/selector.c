@@ -55,6 +55,6 @@ void reset_selector()
 void draw_selector(int maxX, int maxY)
 {
   int xOffset = (M3_WIDTH / 2) - (maxX * CELL_SIZE) / 2;
-  int yOffset = (M3_HEIGHT / 2) - (maxY * CELL_SIZE) / 2;
+  int yOffset = (M3_HEIGHT / 2) - (maxY * CELL_SIZE) / 2 + (TOP_PADDING * 2);
   m3_frame(posX * CELL_SIZE + xOffset, posY * CELL_SIZE + yOffset, posX * CELL_SIZE + CELL_SIZE + xOffset, posY * CELL_SIZE + CELL_SIZE + yOffset, CLR_PURPLE);
 }

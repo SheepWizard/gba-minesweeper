@@ -1,5 +1,6 @@
 #pragma once
 #include <string.h>
+#include "common.h"
 #include "tonc.h"
 
 enum DotDisplaySide

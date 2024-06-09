@@ -24,7 +24,7 @@ void draw_smile(enum Smiles smile)
   }
 
   int posX = (M3_WIDTH / 2) - (14 / 2);
-  int posY = 0;
+  int posY = TOP_PADDING;
 
   int y = 0;
   for (y = 0; y < 14; y++)

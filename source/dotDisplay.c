@@ -53,6 +53,7 @@ static void draw_number(char number, int posX, int posY)
     break;
   }
 
+  posY += TOP_PADDING;
   int y = 0;
   for (y = 0; y < 14; y++)
   {
@@ -67,10 +68,11 @@ void draw_dot_display(int number, enum DotDisplaySide side)
   sprintf(str, "%d", number);
   int offset = 3 - strlen(str);
 
-  int startX = 0;
+  int xOffset = (M3_WIDTH / 2) / 2 - (8 * 3);
+  int startX = xOffset;
   if (side == RIGHT)
   {
-    startX = M3_WIDTH - 0 - (NUMBER_WIDTH * 3);
+    startX = M3_WIDTH - 0 - (NUMBER_WIDTH * 3) + -xOffset;
   }
   int i;
   for (i = 0; i < 3; i++)

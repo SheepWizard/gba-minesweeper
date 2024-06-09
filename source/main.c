@@ -15,7 +15,7 @@ int main()
 	int y = 9;
 	int mines = 10;
 	REG_DISPCNT = DCNT_MODE3 | DCNT_BG2;
-	m3_fill(CLR_ORANGE);
+	m3_fill(CLR_GRAY);
 	Board *b = malloc(sizeof(Board));
 	new_board(b, x, y, mines);
 
