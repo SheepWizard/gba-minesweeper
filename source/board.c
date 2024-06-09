@@ -204,7 +204,7 @@ void free_board(Board *board)
   free(board->cells);
 }
 
-static void end_game(Board *board, bool hasWon)
+static void end_game(Board *board, const bool hasWon)
 {
   int x, y;
   board->gameOver = true;
@@ -225,6 +225,7 @@ static void end_game(Board *board, bool hasWon)
     }
     draw_dot_display(board->minesCount - board->flagsPlaced, LEFT);
     draw_smile(SMILE_WIN);
+    save_score(SAVE_BEGINNER, (u8)board->time);
   }
   else
   {

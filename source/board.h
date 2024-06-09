@@ -5,6 +5,7 @@
 #include "dotDisplay.h"
 #include "timer.h"
 #include "smile.h"
+#include "highScores.h"
 #include <stdlib.h>
 
 typedef struct Board
