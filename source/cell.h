@@ -1,7 +1,7 @@
 #pragma once
 #include "common.h"
 
-#define CELL_SIZE 8
+static const int CELL_SIZE = 8;
 
 typedef struct Cell
 {

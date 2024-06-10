@@ -15,9 +15,9 @@ enum ErrorCode
 
 typedef struct SaveData
 {
-  u8 beginnerScores[MAX_SCORES];
-  u8 intermediateScores[MAX_SCORES];
-  u8 expertScores[MAX_SCORES];
+  u8 beginnerScores[MAX_SCORES * 2];
+  u8 intermediateScores[MAX_SCORES * 2];
+  u8 expertScores[MAX_SCORES * 2];
 } SaveData;
 
 int sram_read(SaveData *data, size_t size);

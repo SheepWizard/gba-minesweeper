@@ -2,7 +2,7 @@
 
 static Selector oldSelector;
 
-static void non_repeating_numbers(int size, int max, int *out)
+static void non_repeating_numbers(int size, const int max, int *out)
 {
   int list[size];
   int i;
@@ -22,7 +22,7 @@ static void non_repeating_numbers(int size, int max, int *out)
   }
 }
 
-static void get_cell_neighbours(Board *inBoard, Cell *inCell, int *outCells)
+static void get_cell_neighbours(const Board *inBoard, const Cell *inCell, int *outCells)
 {
   int i, j, count = 0;
   for (i = -1; i < 2; i++)
@@ -137,7 +137,7 @@ static void flag_button_pressed(Board *board, Cell *cell)
   draw_dot_display(board->minesCount - board->flagsPlaced, LEFT);
 }
 
-void new_board(Board *board, int maxX, int maxY, int minesCount)
+void new_board(Board *board, const int maxX, const int maxY, int minesCount)
 {
   if (maxX * maxY <= minesCount)
   {

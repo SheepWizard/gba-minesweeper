@@ -9,4 +9,12 @@ enum SCORES_SAVE
   SAVE_EXPERT
 };
 
-void save_score(const enum SCORES_SAVE type, const u8 score);
+typedef struct HighScores
+{
+  int beginnerScores[MAX_SCORES];
+  int intermediateScores[MAX_SCORES];
+  int expertScores[MAX_SCORES];
+} HighScores;
+
+void save_score(const enum SCORES_SAVE type, const int score);
+int read_scores(HighScores *highScores);

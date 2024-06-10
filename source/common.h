@@ -1,5 +1,5 @@
 #pragma once
 #include "tonc.h"
 
-#define NEIGHBOUR_SIZE 8
-#define TOP_PADDING 5
+static const int NEIGHBOUR_SIZE = 8;
+static const int TOP_PADDING = 5;

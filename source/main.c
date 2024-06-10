@@ -6,7 +6,7 @@
 #include "tonc.h"
 #include "selector.h"
 #include "board.h"
-#include "save.h"
+#include "highScores.h"
 
 int main()
 {
@@ -17,23 +17,6 @@ int main()
 	m3_fill(CLR_GRAY);
 	Board *b = malloc(sizeof(Board));
 	new_board(b, x, y, mines);
-
-	// SaveData *s = malloc(sizeof(SaveData));
-	// s->beginnerScores[0] = 1;
-	// sram_write(s, sizeof(SaveData));
-
-	// free(s);
-	SaveData *sa = malloc(sizeof(SaveData));
-
-	int code = sram_read(sa, sizeof(SaveData));
-	if (code == E_SUCCESS)
-	{
-		u8 i;
-		for (i = 0; i < 5; i++)
-		{
-			mgba_printf(LOG_INFO, "result %d", sa->beginnerScores[i]);
-		}
-	}
 
 	draw_selector(b->maxX, b->maxY);
 	while (1)
