@@ -2,10 +2,12 @@
 
 typedef enum
 {
-  TITLE_SCREEN,
-  MAIN_MENU,
-  GAME,
-  HIGH_SCORES_MENU,
+  VIEW_TITLE_SCREEN,
+  VIEW_MAIN_MENU,
+  VIEW_GAME,
+  VIEW_HIGH_SCORES_MENU,
 } Views;
 
-static Views currentView = TITLE_SCREEN;
+static Views currentView = VIEW_TITLE_SCREEN;
+
+void set_view(Views view);

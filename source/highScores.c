@@ -70,8 +70,6 @@ void save_score(const enum SCORES_SAVE type, const int score)
   HighScores *highScores = malloc(sizeof(HighScores));
   save_data_to_high_scores(saveData, highScores);
 
-  mgba_printf(LOG_INFO, "%d", score);
-
   switch (type)
   {
   case SAVE_BEGINNER:

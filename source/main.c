@@ -4,34 +4,62 @@
 // mgba gba-minesweeper.gba -3 -l 216
 // make -f Makefile
 #include "tonc.h"
-#include "selector.h"
-#include "board.h"
 #include "highScores.h"
+#include "view.h"
+#include "views/titleView/titleView.h"
+#include "views/gameView/gameView.h"
+
+void update_view()
+{
+	switch (currentView)
+	{
+	case VIEW_TITLE_SCREEN:
+		update_title_view();
+		break;
+	case VIEW_GAME:
+		update_game_view();
+		break;
+	case VIEW_HIGH_SCORES_MENU:
+	case VIEW_MAIN_MENU:
+		break;
+	}
+}
+
+void init_view()
+{
+	switch (currentView)
+	{
+	case VIEW_TITLE_SCREEN:
+		init_title_view();
+		break;
+	case VIEW_GAME:
+		init_game_view();
+		break;
+	case VIEW_HIGH_SCORES_MENU:
+	case VIEW_MAIN_MENU:
+		break;
+	}
+}
 
 int main()
 {
-	int x = 9;
-	int y = 9;
-	int mines = 10;
 	REG_DISPCNT = DCNT_MODE3 | DCNT_BG2;
-	m3_fill(CLR_GRAY);
-	Board *b = malloc(sizeof(Board));
-	new_board(b, x, y, mines);
 
-	draw_selector(b->maxX, b->maxY);
+	Views oldView = -1;
+
 	while (1)
 	{
 		vid_vsync();
 		key_poll();
-		update_board(b);
 
-		if (key_hit(KEY_SELECT))
+		if (oldView != currentView)
 		{
-			free_board(b);
-			new_board(b, x, y, mines);
-			reset_selector();
-			draw_selector(b->maxX, b->maxY);
+			// Probably need a close view func
+			init_view();
+			oldView = currentView;
 		}
+
+		update_view();
 	}
 
 	return 0;
