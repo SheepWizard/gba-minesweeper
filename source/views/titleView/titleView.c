@@ -9,6 +9,6 @@ void update_title_view()
 {
   if (key_hit(KEY_START))
   {
-    set_view(VIEW_GAME);
+    set_view(VIEW_MAIN_MENU);
   }
 }

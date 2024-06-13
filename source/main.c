@@ -8,6 +8,7 @@
 #include "view.h"
 #include "views/titleView/titleView.h"
 #include "views/gameView/gameView.h"
+#include "views/menuView/menuView.h"
 
 void update_view()
 {
@@ -19,8 +20,10 @@ void update_view()
 	case VIEW_GAME:
 		update_game_view();
 		break;
-	case VIEW_HIGH_SCORES_MENU:
 	case VIEW_MAIN_MENU:
+		update_menu_view();
+		break;
+	case VIEW_HIGH_SCORES_MENU:
 		break;
 	}
 }
@@ -35,8 +38,9 @@ void init_view()
 	case VIEW_GAME:
 		init_game_view();
 		break;
-	case VIEW_HIGH_SCORES_MENU:
 	case VIEW_MAIN_MENU:
+		init_menu_view();
+	case VIEW_HIGH_SCORES_MENU:
 		break;
 	}
 }

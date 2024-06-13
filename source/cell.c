@@ -110,7 +110,7 @@ void draw_cell(Cell *inCell, int maxX, int maxY)
 
   int yOffset = CELL_SIZE * inCell->y + yCenter + (TOP_PADDING * 2);
   int xOffset = CELL_SIZE * inCell->x + xCenter;
-  int y = 0;
+  int y;
   for (y = 0; y < CELL_SIZE; y++)
   {
     memcpy(&vid_mem[(y + yOffset) * M3_WIDTH + xOffset], &cellImage[y * CELL_SIZE], 16);

@@ -17,11 +17,16 @@ void update_game_view()
 {
   update_board(board);
 
-  if (key_hit(KEY_SELECT))
+  if (key_released(KEY_SELECT))
   {
     free_board(board);
     new_board(board, x, y, mines);
     reset_selector();
     draw_selector(board->maxX, board->maxY);
+  }
+
+  if (key_hit(KEY_START))
+  {
+    set_view(VIEW_MAIN_MENU);
   }
 }
