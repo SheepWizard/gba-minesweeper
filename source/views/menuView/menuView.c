@@ -26,8 +26,15 @@ static void select_option()
   switch (selectorPosition)
   {
   case 0:
+    set_difficulty(DIFFICULTY_BEGINNER);
+    set_view(VIEW_GAME);
+    break;
   case 1:
+    set_difficulty(DIFFICULTY_INTERMEDIATE);
+    set_view(VIEW_GAME);
+    break;
   case 2:
+    set_difficulty(DIFFICULTY_EXPERT);
     set_view(VIEW_GAME);
     break;
   case 3:
