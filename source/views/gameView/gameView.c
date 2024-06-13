@@ -1,4 +1,4 @@
-#include "views/gameView/gameView.h"
+#include "gameView.h"
 
 static Board *board;
 static int x = 9;

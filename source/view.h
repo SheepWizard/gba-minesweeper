@@ -8,6 +8,5 @@ typedef enum
   VIEW_HIGH_SCORES_MENU,
 } Views;
 
-static Views currentView = VIEW_TITLE_SCREEN;
-
+Views get_view();
 void set_view(Views view);

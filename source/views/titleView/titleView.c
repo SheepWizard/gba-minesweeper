@@ -1,4 +1,4 @@
-#include "views/titleView/titleView.h"
+#include "titleView.h"
 
 void init_title_view()
 {

@@ -11,7 +11,7 @@
 
 void update_view()
 {
-	switch (currentView)
+	switch (get_view())
 	{
 	case VIEW_TITLE_SCREEN:
 		update_title_view();
@@ -27,7 +27,7 @@ void update_view()
 
 void init_view()
 {
-	switch (currentView)
+	switch (get_view())
 	{
 	case VIEW_TITLE_SCREEN:
 		init_title_view();
@@ -52,11 +52,11 @@ int main()
 		vid_vsync();
 		key_poll();
 
-		if (oldView != currentView)
+		if (oldView != get_view())
 		{
 			// Probably need a close view func
 			init_view();
-			oldView = currentView;
+			oldView = get_view();
 		}
 
 		update_view();
