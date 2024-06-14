@@ -1,20 +1,4 @@
-#include "common.h"
-#include <string.h>
 #include "cell.h"
-#include "assets/cell_hidden.h"
-#include "assets/cell_1.h"
-#include "assets/cell_2.h"
-#include "assets/cell_3.h"
-#include "assets/cell_4.h"
-#include "assets/cell_5.h"
-#include "assets/cell_6.h"
-#include "assets/cell_7.h"
-#include "assets/cell_8.h"
-#include "assets/cell_open.h"
-#include "assets/cell_mine.h"
-#include "assets/cell_flag.h"
-#include "assets/cell_minehit.h"
-#include "assets/cell_wrongflag.h"
 
 void create_cell(int x, int y, Cell *cell)
 {

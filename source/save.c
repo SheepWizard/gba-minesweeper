@@ -1,7 +1,6 @@
-// https://github.com/laqieer/libsavgba/tree/main
+// Taken from https://github.com/laqieer/libsavgba/tree/main
 
 #include "save.h"
-#include <stddef.h>
 
 IWRAM_CODE static void sram_memcpy(volatile unsigned char *dst, const volatile unsigned char *src, size_t size)
 {

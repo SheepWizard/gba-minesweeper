@@ -34,7 +34,6 @@ void init_game_view()
   m3_fill(CLR_GRAY);
   board = malloc(sizeof(Board));
   new_board(board, x, y, mines, currentDifficulty);
-  draw_selector(board->maxX, board->maxY);
 }
 
 void update_game_view()
@@ -45,8 +44,6 @@ void update_game_view()
   {
     free_board(board);
     new_board(board, x, y, mines, currentDifficulty);
-    reset_selector();
-    draw_selector(board->maxX, board->maxY);
   }
 
   if (key_hit(KEY_START))

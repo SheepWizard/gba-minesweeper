@@ -1,5 +1,6 @@
 #pragma once
 #include "tonc.h"
+#include <stddef.h>
 
 #define MAX_SCORES 5
 

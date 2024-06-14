@@ -1,6 +1,5 @@
 #pragma once
 #include "../../board.h"
-#include "../../selector.h"
 #include "../../view.h"
 
 void set_difficulty(Difficulty difficulty);

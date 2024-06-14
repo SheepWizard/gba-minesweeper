@@ -14,7 +14,6 @@ static void non_repeating_numbers(int size, const int max, int *out)
   for (i = 0; i < max; i++)
   {
     int randomNumber = rand() % size;
-    mgba_printf(LOG_INFO, "%d", randomNumber);
     out[i] = list[randomNumber];
     int temp = list[randomNumber];
     list[randomNumber] = list[size - 1];
@@ -196,6 +195,8 @@ void new_board(Board *board, const int maxX, const int maxY, int minesCount, Dif
     }
   }
   stop_timer();
+  reset_selector();
+  draw_selector(board->maxX, board->maxY);
   draw_smile(SMILE_PLAY);
   draw_dot_display(board->minesCount - board->flagsPlaced, LEFT);
   draw_dot_display(0, RIGHT);
