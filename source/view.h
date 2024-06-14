@@ -14,6 +14,4 @@ typedef enum
 
 Views get_view();
 void set_view(Views view);
-static void update_view();
-static void init_view();
 void watch_view();

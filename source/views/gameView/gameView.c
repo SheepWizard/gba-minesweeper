@@ -54,3 +54,9 @@ void update_game_view()
     set_view(VIEW_MAIN_MENU);
   }
 }
+
+void close_game_view()
+{
+  free_board(board);
+  free(board);
+}

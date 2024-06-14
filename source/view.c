@@ -41,6 +41,27 @@ static void init_view()
   }
 }
 
+static void close_view()
+{
+  if (oldView == -1)
+  {
+    return;
+  }
+
+  switch (oldView)
+  {
+  case VIEW_TITLE_SCREEN:
+    break;
+  case VIEW_GAME:
+    close_game_view();
+    break;
+  case VIEW_MAIN_MENU:
+    break;
+  case VIEW_HIGH_SCORES_MENU:
+    break;
+  }
+}
+
 Views get_view()
 {
   return currentView;
@@ -53,10 +74,9 @@ void set_view(Views view)
 
 void watch_view()
 {
-
   if (oldView != currentView)
   {
-    // Probably need a close view func
+    close_view();
     init_view();
     oldView = currentView;
   }
