@@ -14,6 +14,7 @@ static void non_repeating_numbers(int size, const int max, int *out)
   for (i = 0; i < max; i++)
   {
     int randomNumber = rand() % size;
+    mgba_printf(LOG_INFO, "%d", randomNumber);
     out[i] = list[randomNumber];
     int temp = list[randomNumber];
     list[randomNumber] = list[size - 1];
@@ -137,7 +138,7 @@ static void flag_button_pressed(Board *board, Cell *cell)
   draw_dot_display(board->minesCount - board->flagsPlaced, LEFT);
 }
 
-void new_board(Board *board, const int maxX, const int maxY, int minesCount)
+void new_board(Board *board, const int maxX, const int maxY, int minesCount, Difficulty difficulty)
 {
   if (maxX * maxY <= minesCount)
   {
@@ -151,6 +152,7 @@ void new_board(Board *board, const int maxX, const int maxY, int minesCount)
   board->minesCount = minesCount;
   board->nonMineCellsOpened = 0;
   board->time = 0;
+  board->difficulty = difficulty;
 
   Cell *cells = malloc(sizeof(Cell) * (maxY * maxX));
   int x;
@@ -225,7 +227,7 @@ static void end_game(Board *board, const bool hasWon)
     }
     draw_dot_display(board->minesCount - board->flagsPlaced, LEFT);
     draw_smile(SMILE_WIN);
-    save_score(SAVE_BEGINNER, (u8)board->time);
+    save_score(board->difficulty, (u8)board->time);
   }
   else
   {
@@ -333,7 +335,7 @@ void update_board(Board *board)
   {
     return;
   }
-  Selector selector = update_selector(board);
+  Selector selector = update_selector(board->maxX, board->maxY);
   Cell *currentCell = &board->cells[selector.posY * board->maxX + selector.posX];
 
   if (key_is_down(KEY_A))

@@ -1,6 +1,6 @@
 #include "view.h"
 
-static Views currentView = VIEW_TITLE_SCREEN;
+static Views currentView = VIEW_HIGH_SCORES_MENU;
 
 Views get_view()
 {

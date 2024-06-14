@@ -38,6 +38,7 @@ static void select_option()
     set_view(VIEW_GAME);
     break;
   case 3:
+    set_view(VIEW_HIGH_SCORES_MENU);
     break;
   }
 }

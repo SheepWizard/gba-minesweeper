@@ -3,7 +3,7 @@
 static int posX = 0;
 static int posY = 0;
 
-Selector update_selector(Board *board)
+Selector update_selector(const int maxX, const int maxY)
 {
   if (key_hit(KEY_RIGHT))
   {
@@ -22,21 +22,21 @@ Selector update_selector(Board *board)
     posY++;
   }
 
-  if (posX >= board->maxX)
+  if (posX >= maxX)
   {
     posX = 0;
   }
   if (posX < 0)
   {
-    posX = board->maxX - 1;
+    posX = maxX - 1;
   }
-  if (posY >= board->maxY)
+  if (posY >= maxY)
   {
     posY = 0;
   }
   if (posY < 0)
   {
-    posY = board->maxY - 1;
+    posY = maxY - 1;
   }
 
   Selector selector;

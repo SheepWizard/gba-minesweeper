@@ -9,6 +9,7 @@
 #include "views/titleView/titleView.h"
 #include "views/gameView/gameView.h"
 #include "views/menuView/menuView.h"
+#include "views/scoresView/scoresView.h"
 
 void update_view()
 {
@@ -24,6 +25,7 @@ void update_view()
 		update_menu_view();
 		break;
 	case VIEW_HIGH_SCORES_MENU:
+		update_scores_view();
 		break;
 	}
 }
@@ -40,7 +42,9 @@ void init_view()
 		break;
 	case VIEW_MAIN_MENU:
 		init_menu_view();
+		break;
 	case VIEW_HIGH_SCORES_MENU:
+		init_scores_view();
 		break;
 	}
 }

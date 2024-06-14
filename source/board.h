@@ -8,7 +8,14 @@
 #include "highScores.h"
 #include <stdlib.h>
 
-typedef struct Board
+typedef enum
+{
+  DIFFICULTY_BEGINNER,
+  DIFFICULTY_INTERMEDIATE,
+  DIFFICULTY_EXPERT
+} Difficulty;
+
+typedef struct
 {
   Cell *cells;
   int maxX;
@@ -19,8 +26,9 @@ typedef struct Board
   bool gameOver;
   int clicks;
   int time;
+  Difficulty difficulty;
 } Board;
 
 void update_board(Board *board);
 void free_board(Board *board);
-void new_board(Board *board, int maxX, int maxY, int minesCount);
+void new_board(Board *board, int maxX, int maxY, int minesCount, Difficulty difficulty);
