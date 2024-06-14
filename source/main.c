@@ -4,70 +4,17 @@
 // mgba gba-minesweeper.gba -3 -l 216
 // make -f Makefile
 #include "tonc.h"
-#include "highScores.h"
 #include "view.h"
-#include "views/titleView/titleView.h"
-#include "views/gameView/gameView.h"
-#include "views/menuView/menuView.h"
-#include "views/scoresView/scoresView.h"
-
-void update_view()
-{
-	switch (get_view())
-	{
-	case VIEW_TITLE_SCREEN:
-		update_title_view();
-		break;
-	case VIEW_GAME:
-		update_game_view();
-		break;
-	case VIEW_MAIN_MENU:
-		update_menu_view();
-		break;
-	case VIEW_HIGH_SCORES_MENU:
-		update_scores_view();
-		break;
-	}
-}
-
-void init_view()
-{
-	switch (get_view())
-	{
-	case VIEW_TITLE_SCREEN:
-		init_title_view();
-		break;
-	case VIEW_GAME:
-		init_game_view();
-		break;
-	case VIEW_MAIN_MENU:
-		init_menu_view();
-		break;
-	case VIEW_HIGH_SCORES_MENU:
-		init_scores_view();
-		break;
-	}
-}
 
 int main()
 {
 	REG_DISPCNT = DCNT_MODE3 | DCNT_BG2;
 
-	Views oldView = -1;
-
 	while (1)
 	{
 		vid_vsync();
 		key_poll();
-
-		if (oldView != get_view())
-		{
-			// Probably need a close view func
-			init_view();
-			oldView = get_view();
-		}
-
-		update_view();
+		watch_view();
 	}
 
 	return 0;

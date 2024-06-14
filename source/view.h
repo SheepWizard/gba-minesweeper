@@ -1,4 +1,8 @@
 #pragma once
+#include "views/titleView/titleView.h"
+#include "views/gameView/gameView.h"
+#include "views/menuView/menuView.h"
+#include "views/scoresView/scoresView.h"
 
 typedef enum
 {
@@ -10,3 +14,6 @@ typedef enum
 
 Views get_view();
 void set_view(Views view);
+static void update_view();
+static void init_view();
+void watch_view();
