@@ -14,10 +14,10 @@
 #include "assets/number_9.h"
 #include "assets/number_blank.h"
 
-enum DotDisplaySide
+typedef enum
 {
-  LEFT,
-  RIGHT
-};
+  DOT_DISPLAY_SIDE_LEFT,
+  DOT_DISPLAY_SIDE_RIGHT
+} DotDisplaySide;
 
-void draw_dot_display(int number, enum DotDisplaySide side);
+void draw_dot_display(int number, DotDisplaySide side);

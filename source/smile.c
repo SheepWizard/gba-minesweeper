@@ -1,6 +1,6 @@
 #include "smile.h"
 
-void draw_smile(enum Smiles smile)
+void draw_smile(Smiles smile)
 {
   const unsigned short *smileImage = smiley_playBitmap;
 

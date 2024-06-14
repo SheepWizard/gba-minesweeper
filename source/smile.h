@@ -7,12 +7,12 @@
 #include "assets/smiley_dead.h"
 #include "assets/smiley_win.h"
 
-enum Smiles
+typedef enum
 {
   SMILE_DEAD,
   SMILE_OFACE,
   SMILE_PLAY,
   SMILE_WIN
-};
+} Smiles;
 
-void draw_smile(enum Smiles smile);
+void draw_smile(Smiles smile);

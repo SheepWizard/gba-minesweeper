@@ -58,7 +58,7 @@ static void high_scores_to_save_data(HighScores *highScores, SaveData *saveData)
   }
 }
 
-void save_score(const enum SCORES_SAVE type, const int score)
+void save_score(const ScoreSave type, const int score)
 {
   SaveData *saveData = malloc(sizeof(SaveData));
   int code = sram_read(saveData, sizeof(SaveData));

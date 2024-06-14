@@ -50,7 +50,7 @@ static void draw_number(char number, int posX, int posY)
   }
 }
 
-void draw_dot_display(int number, enum DotDisplaySide side)
+void draw_dot_display(int number, DotDisplaySide side)
 {
   number = clamp(number, -99, 999);
   char str[4];
@@ -59,7 +59,7 @@ void draw_dot_display(int number, enum DotDisplaySide side)
 
   int xOffset = (M3_WIDTH / 2) / 2 - (8 * 3);
   int startX = xOffset;
-  if (side == RIGHT)
+  if (side == DOT_DISPLAY_SIDE_RIGHT)
   {
     startX = M3_WIDTH - 0 - (NUMBER_WIDTH * 3) + -xOffset;
   }

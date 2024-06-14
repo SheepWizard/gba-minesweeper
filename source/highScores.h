@@ -2,12 +2,12 @@
 #include <stdlib.h>
 #include "save.h"
 
-enum SCORES_SAVE
+typedef enum
 {
   SAVE_BEGINNER,
   SAVE_INTERMEDIATE,
   SAVE_EXPERT
-};
+} ScoreSave;
 
 typedef struct HighScores
 {
@@ -16,5 +16,5 @@ typedef struct HighScores
   int expertScores[MAX_SCORES];
 } HighScores;
 
-void save_score(const enum SCORES_SAVE type, const int score);
+void save_score(const ScoreSave type, const int score);
 int read_scores(HighScores *highScores);

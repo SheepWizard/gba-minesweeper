@@ -134,7 +134,7 @@ static void flag_button_pressed(Board *board, Cell *cell)
   draw_cell(cell, board->maxX, board->maxY);
   draw_selector(board->maxX, board->maxY);
   cell->isFlagged ? board->flagsPlaced++ : board->flagsPlaced--;
-  draw_dot_display(board->minesCount - board->flagsPlaced, LEFT);
+  draw_dot_display(board->minesCount - board->flagsPlaced, DOT_DISPLAY_SIDE_LEFT);
 }
 
 void new_board(Board *board, const int maxX, const int maxY, int minesCount, Difficulty difficulty)
@@ -198,8 +198,8 @@ void new_board(Board *board, const int maxX, const int maxY, int minesCount, Dif
   reset_selector();
   draw_selector(board->maxX, board->maxY);
   draw_smile(SMILE_PLAY);
-  draw_dot_display(board->minesCount - board->flagsPlaced, LEFT);
-  draw_dot_display(0, RIGHT);
+  draw_dot_display(board->minesCount - board->flagsPlaced, DOT_DISPLAY_SIDE_LEFT);
+  draw_dot_display(0, DOT_DISPLAY_SIDE_RIGHT);
 }
 
 void free_board(Board *board)
@@ -226,7 +226,7 @@ static void end_game(Board *board, const bool hasWon)
         }
       }
     }
-    draw_dot_display(board->minesCount - board->flagsPlaced, LEFT);
+    draw_dot_display(board->minesCount - board->flagsPlaced, DOT_DISPLAY_SIDE_LEFT);
     draw_smile(SMILE_WIN);
     save_score(board->difficulty, (u8)board->time);
   }
@@ -326,7 +326,7 @@ static void update_timer(Board *board)
   if (currentTime != board->time)
   {
     board->time = currentTime;
-    draw_dot_display(currentTime, RIGHT);
+    draw_dot_display(currentTime, DOT_DISPLAY_SIDE_RIGHT);
   }
 }
 
