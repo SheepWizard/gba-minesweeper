@@ -46,10 +46,10 @@ Selector update_selector(const int maxX, const int maxY)
   return selector;
 }
 
-void reset_selector()
+void reset_selector(const int maxX, const int maxY)
 {
-  posX = 0;
-  posY = 0;
+  posX = maxX / 2;
+  posY = maxY / 2;
 }
 
 void draw_selector(int maxX, int maxY)

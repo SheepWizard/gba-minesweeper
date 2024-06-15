@@ -42,7 +42,7 @@ void update_game_view()
 
   if (key_released(KEY_SELECT))
   {
-    free_board(board);
+    free_cells(board);
     new_board(board, x, y, mines, currentDifficulty);
   }
 
@@ -54,6 +54,6 @@ void update_game_view()
 
 void close_game_view()
 {
-  free_board(board);
+  free_cells(board);
   free(board);
 }

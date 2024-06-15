@@ -6,12 +6,12 @@
 
 enum ErrorCode
 {
-  E_SUCCESS = 0,        ///< No error.
-  E_INVALID_PARAM,      ///< Invalid input parameter.
-  E_OUT_OF_RANGE,       ///< Address is out of range.
-  E_VERIFY_FAIL,        ///< Failed to verify written data.
-  E_UNSUPPORTED_DEVICE, ///< Device type is not supported.
-  E_TIMEOUT,            ///< Operation timeout.
+  E_SUCCESS = 0,
+  E_INVALID_PARAM,
+  E_OUT_OF_RANGE,
+  E_VERIFY_FAIL,
+  E_UNSUPPORTED_DEVICE,
+  E_TIMEOUT,
 };
 
 typedef struct SaveData

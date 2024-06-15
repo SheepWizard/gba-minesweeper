@@ -7,7 +7,7 @@ static int selectorPosition = 0;
 // Make this better
 static void update_menu_selector(const int previousPosition)
 {
-  int yOffset = (10 * previousPosition) + 20 + (SELECTOR_GAP * previousPosition);
+  int yOffset = (10 * previousPosition) + 30 + (SELECTOR_GAP * previousPosition);
 
   int i;
   for (i = 0; i < 10; i++)
@@ -15,7 +15,7 @@ static void update_menu_selector(const int previousPosition)
     memcpy(&vid_mem[(i + yOffset) * M3_WIDTH + 20], &menu_screenBitmap[(i + yOffset) * M3_WIDTH + 20], 20);
   }
 
-  yOffset = (10 * selectorPosition) + 20 + (SELECTOR_GAP * selectorPosition);
+  yOffset = (10 * selectorPosition) + 30 + (SELECTOR_GAP * selectorPosition);
   for (i = 0; i < 10; i++)
   {
     memcpy(&vid_mem[(i + yOffset) * M3_WIDTH + 20], &cursorBitmap[i * 10], 20);

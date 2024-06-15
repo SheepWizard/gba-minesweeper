@@ -30,5 +30,5 @@ typedef struct
 } Board;
 
 void update_board(Board *board);
-void free_board(Board *board);
+void free_cells(Board *board);
 void new_board(Board *board, int maxX, int maxY, int minesCount, Difficulty difficulty);

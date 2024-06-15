@@ -195,14 +195,14 @@ void new_board(Board *board, const int maxX, const int maxY, int minesCount, Dif
     }
   }
   stop_timer();
-  reset_selector();
+  reset_selector(board->maxX, board->maxY);
   draw_selector(board->maxX, board->maxY);
   draw_smile(SMILE_PLAY);
   draw_dot_display(board->minesCount - board->flagsPlaced, DOT_DISPLAY_SIDE_LEFT);
   draw_dot_display(0, DOT_DISPLAY_SIDE_RIGHT);
 }
 
-void free_board(Board *board)
+void free_cells(Board *board)
 {
   free(board->cells);
 }
@@ -243,6 +243,7 @@ static void end_game(Board *board, const bool hasWon)
     }
     draw_smile(SMILE_DEAD);
   }
+  // mgba_printf(LOG_INFO, "gameover");
 }
 
 static void check_win(Board *board)
@@ -356,6 +357,7 @@ static void update_timer(Board *board)
   int currentTime = read_timer();
   if (currentTime != board->time)
   {
+    // mgba_printf(LOG_INFO, "update timer");
     board->time = currentTime;
     draw_dot_display(currentTime, DOT_DISPLAY_SIDE_RIGHT);
   }
@@ -409,5 +411,6 @@ void update_board(Board *board)
     }
   }
   // Time not updating properly on new game
+  // mgba_printf(LOG_INFO, "play");
   update_timer(board);
 }
