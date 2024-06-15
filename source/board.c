@@ -294,7 +294,7 @@ static void chord_hover(Board *board, Cell *cell)
   get_cell_neighbours(board, cell, neighbours);
   for (i = 0; i < NEIGHBOUR_SIZE; i++)
   {
-    if (neighbours[i] == -1)
+    if (neighbours[i] == -1 || board->cells[neighbours[i]].hovered)
     {
       continue;
     }
@@ -377,16 +377,12 @@ void update_board(Board *board)
     draw_selector(board->maxX, board->maxY);
     oldSelector = selector;
   }
-  if (key_is_down(KEY_A))
+  if (key_is_down(KEY_A) && !currentCell->isOpen && !currentCell->hovered)
   {
-    if (!currentCell->isOpen)
-    {
-      // Does this keep drawing?
-      draw_smile(SMILE_OFACE);
-      currentCell->hovered = true;
-      draw_cell(currentCell, board->maxX, board->maxY);
-      draw_selector(board->maxX, board->maxY);
-    }
+    draw_smile(SMILE_OFACE);
+    currentCell->hovered = true;
+    draw_cell(currentCell, board->maxX, board->maxY);
+    draw_selector(board->maxX, board->maxY);
   }
   if (key_released(KEY_A))
   {
@@ -399,14 +395,10 @@ void update_board(Board *board)
   {
     flag_button_pressed(board, currentCell);
   }
-  if (key_is_down(KEY_R))
+  if (key_is_down(KEY_R) && currentCell->isOpen && currentCell->number != 0)
   {
-    if (currentCell->isOpen && currentCell->number != 0)
-    {
-      // Does this keep drawing?
-      chord_hover(board, currentCell);
-      draw_selector(board->maxX, board->maxY);
-    }
+    chord_hover(board, currentCell);
+    draw_selector(board->maxX, board->maxY);
   }
   if (key_released(KEY_R))
   {
