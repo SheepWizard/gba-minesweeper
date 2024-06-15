@@ -9,6 +9,7 @@ void create_cell(int x, int y, Cell *cell)
   cell->isFlagged = false;
   cell->isOpen = false;
   cell->mineHit = false;
+  cell->hovered = false;
 }
 
 void flag_cell(Cell *cell)
@@ -86,7 +87,14 @@ void draw_cell(Cell *inCell, int maxX, int maxY)
   }
   else
   {
-    cellImage = cell_hiddenBitmap;
+    if (inCell->hovered)
+    {
+      cellImage = cell_hoveredBitmap;
+    }
+    else
+    {
+      cellImage = cell_hiddenBitmap;
+    }
   }
 
   int xCenter = (M3_WIDTH / 2) - (maxX * CELL_SIZE) / 2;

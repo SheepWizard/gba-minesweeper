@@ -4,6 +4,7 @@ static const int SELECTOR_GAP = 20;
 static const int MAX_SELECTOR_POSITION = 3;
 static int selectorPosition = 0;
 
+// Make this better
 static void update_menu_selector(const int previousPosition)
 {
   int yOffset = (10 * previousPosition) + 20 + (SELECTOR_GAP * previousPosition);

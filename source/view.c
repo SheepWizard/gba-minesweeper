@@ -1,6 +1,6 @@
 #include "view.h"
 
-static Views currentView = VIEW_TITLE_SCREEN;
+static Views currentView = VIEW_GAME;
 static Views oldView = -1;
 
 static void update_view()

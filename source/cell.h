@@ -11,6 +11,7 @@
 #include "assets/cell_7.h"
 #include "assets/cell_8.h"
 #include "assets/cell_open.h"
+#include "assets/cell_hovered.h"
 #include "assets/cell_mine.h"
 #include "assets/cell_flag.h"
 #include "assets/cell_minehit.h"
@@ -27,6 +28,7 @@ typedef struct Cell
   bool isFlagged;
   bool isOpen;
   bool mineHit;
+  bool hovered;
 } Cell;
 
 void create_cell(int x, int y, Cell *cell);

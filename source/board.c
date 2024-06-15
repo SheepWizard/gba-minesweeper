@@ -287,6 +287,22 @@ static void open_cell(Board *board, Cell *cell)
   check_win(board);
 }
 
+static void chord_hover(Board *board, Cell *cell)
+{
+  int i;
+  int neighbours[NEIGHBOUR_SIZE];
+  get_cell_neighbours(board, cell, neighbours);
+  for (i = 0; i < NEIGHBOUR_SIZE; i++)
+  {
+    if (neighbours[i] == -1)
+    {
+      continue;
+    }
+    board->cells[neighbours[i]].hovered = true;
+    draw_cell(&board->cells[neighbours[i]], board->maxX, board->maxY);
+  }
+}
+
 static void chord(Board *board, Cell *cell)
 {
   int i, flagCount = 0;
@@ -320,6 +336,21 @@ static void chord(Board *board, Cell *cell)
   }
 }
 
+static void clear_hovered_cells(Board *board)
+{
+  int i;
+  int max = board->maxX * board->maxY;
+  for (i = 0; i < max; i++)
+  {
+    if (!board->cells[i].hovered)
+    {
+      continue;
+    }
+    board->cells[i].hovered = false;
+    draw_cell(&board->cells[i], board->maxX, board->maxY);
+  }
+}
+
 static void update_timer(Board *board)
 {
   int currentTime = read_timer();
@@ -339,12 +370,22 @@ void update_board(Board *board)
   Selector selector = update_selector(board->maxX, board->maxY);
   Cell *currentCell = &board->cells[selector.posY * board->maxX + selector.posX];
 
+  if (oldSelector.posX != selector.posX || oldSelector.posY != selector.posY)
+  {
+    clear_hovered_cells(board);
+    draw_cell(&board->cells[oldSelector.posY * board->maxX + oldSelector.posX], board->maxX, board->maxY);
+    draw_selector(board->maxX, board->maxY);
+    oldSelector = selector;
+  }
   if (key_is_down(KEY_A))
   {
     if (!currentCell->isOpen)
     {
       // Does this keep drawing?
       draw_smile(SMILE_OFACE);
+      currentCell->hovered = true;
+      draw_cell(currentCell, board->maxX, board->maxY);
+      draw_selector(board->maxX, board->maxY);
     }
   }
   if (key_released(KEY_A))
@@ -358,15 +399,22 @@ void update_board(Board *board)
   {
     flag_button_pressed(board, currentCell);
   }
-  if (key_hit(KEY_R))
+  if (key_is_down(KEY_R))
   {
-    chord(board, currentCell);
+    if (currentCell->isOpen && currentCell->number != 0)
+    {
+      // Does this keep drawing?
+      chord_hover(board, currentCell);
+      draw_selector(board->maxX, board->maxY);
+    }
   }
-  if (oldSelector.posX != selector.posX || oldSelector.posY != selector.posY)
+  if (key_released(KEY_R))
   {
-    draw_cell(&board->cells[oldSelector.posY * board->maxX + oldSelector.posX], board->maxX, board->maxY);
-    draw_selector(board->maxX, board->maxY);
-    oldSelector = selector;
+    clear_hovered_cells(board);
+    if (currentCell->isOpen && currentCell->number != 0)
+    {
+      chord(board, currentCell);
+    }
   }
   // Time not updating properly on new game
   update_timer(board);
