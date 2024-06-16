@@ -228,7 +228,7 @@ static void end_game(Board *board, const bool hasWon)
     }
     draw_dot_display(board->minesCount - board->flagsPlaced, DOT_DISPLAY_SIDE_LEFT);
     draw_smile(SMILE_WIN);
-    save_score(board->difficulty, (u8)board->time);
+    save_score(board->difficulty, board->time);
   }
   else
   {
