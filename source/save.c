@@ -21,8 +21,9 @@ IWRAM_CODE static unsigned int sram_absmemcmp(const volatile unsigned char *dst,
   return 0;
 }
 
-int sram_read(SaveData *data, size_t size)
+int sram_read(SaveData *data)
 {
+  size_t size = sizeof(SaveData);
   if (data == NULL)
     return E_INVALID_PARAM;
 
@@ -34,8 +35,9 @@ int sram_read(SaveData *data, size_t size)
   return 0;
 }
 
-int sram_write(SaveData *data, size_t size)
+int sram_write(SaveData *data)
 {
+  size_t size = sizeof(SaveData);
   if (data == NULL)
     return E_INVALID_PARAM;
 

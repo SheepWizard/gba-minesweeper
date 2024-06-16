@@ -1,4 +1,5 @@
 #pragma once
+#include "seed.h"
 #include "views/titleView/titleView.h"
 #include "views/gameView/gameView.h"
 #include "views/menuView/menuView.h"

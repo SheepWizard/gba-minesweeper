@@ -2,6 +2,8 @@
 
 static Views currentView = VIEW_TITLE_SCREEN;
 static Views oldView = -1;
+static int count = 0;
+static bool seedUpdated = false;
 
 static void update_view()
 {
@@ -76,9 +78,20 @@ void watch_view()
 {
   if (oldView != currentView)
   {
+    if (currentView == VIEW_GAME && !seedUpdated)
+    {
+      update_seed((u8)count);
+      seedUpdated = true;
+    }
+
     close_view();
     init_view();
     oldView = currentView;
   }
   update_view();
+
+  if (!seedUpdated)
+  {
+    count++;
+  }
 }

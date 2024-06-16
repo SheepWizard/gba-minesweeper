@@ -61,7 +61,7 @@ static void high_scores_to_save_data(HighScores *highScores, SaveData *saveData)
 void save_score(const ScoreSave type, const int score)
 {
   SaveData *saveData = malloc(sizeof(SaveData));
-  int code = sram_read(saveData, sizeof(SaveData));
+  int code = sram_read(saveData);
   if (code != E_SUCCESS)
   {
     return;
@@ -83,7 +83,7 @@ void save_score(const ScoreSave type, const int score)
     break;
   }
   high_scores_to_save_data(highScores, saveData);
-  sram_write(saveData, sizeof(SaveData));
+  sram_write(saveData);
 
   free(highScores);
   free(saveData);
@@ -92,7 +92,7 @@ void save_score(const ScoreSave type, const int score)
 int read_scores(HighScores *highScores)
 {
   SaveData *saveData = malloc(sizeof(SaveData));
-  int code = sram_read(saveData, sizeof(SaveData));
+  int code = sram_read(saveData);
   if (code != E_SUCCESS)
   {
     return code;

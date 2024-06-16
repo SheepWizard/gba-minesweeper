@@ -5,10 +5,13 @@
 // make -f Makefile
 #include "tonc.h"
 #include "view.h"
+#include "seed.h"
 
 int main()
 {
 	REG_DISPCNT = DCNT_MODE3 | DCNT_BG2;
+
+	load_seed();
 
 	while (1)
 	{
