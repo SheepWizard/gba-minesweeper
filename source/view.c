@@ -80,7 +80,7 @@ void watch_view()
   {
     if (currentView == VIEW_GAME && !seedUpdated)
     {
-      update_seed((u8)count);
+      update_seed(count);
       seedUpdated = true;
     }
 

@@ -5,4 +5,4 @@
 #include <stdlib.h>
 
 void load_seed();
-void update_seed(u8 value);
+void update_seed(int value);

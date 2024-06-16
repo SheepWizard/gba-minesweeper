@@ -13,7 +13,7 @@ void load_seed()
   free(data);
 }
 
-void update_seed(u8 value)
+void update_seed(int value)
 {
   SaveData *data = malloc(sizeof(SaveData));
   int code = sram_read(data);
@@ -22,10 +22,9 @@ void update_seed(u8 value)
     return;
   }
 
-  u8 newSeed = (data->seed + value) % 255;
-
+  int newSeed = ((u16)data->seed + value);
   srand(newSeed);
-  data->seed = newSeed;
+  data->seed = (u8)newSeed;
 
   sram_write(data);
   free(data);
