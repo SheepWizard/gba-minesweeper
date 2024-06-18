@@ -1,6 +1,6 @@
 #pragma once
 #include "tonc.h"
 
-void start_timer();
-int read_timer();
+u32 get_timer();
 void stop_timer();
+void start_timer();

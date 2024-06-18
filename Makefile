@@ -36,7 +36,8 @@ GRAPHICS	:= graphics
 #---------------------------------------------------------------------------------
 # options for code generation
 #---------------------------------------------------------------------------------
-ARCH	:=	-mthumb -mthumb-interwork
+ARCH	:=	-mthumb -mthumb-interwork -marm -mlong-calls
+
 
 CFLAGS	:=	-g -Wall -O2\
 		-mcpu=arm7tdmi -mtune=arm7tdmi\

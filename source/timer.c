@@ -1,31 +1,30 @@
 #include "timer.h"
 
-static int time = 0;
-static int vblankCount = 0;
-static bool running = false;
+volatile static u32 decisecond = 0;
 
-void start_timer()
+IWRAM_CODE volatile void timer_irq()
 {
-  time = 0;
-  running = true;
+  decisecond++;
+  REG_IF = IRQ_TIMER0; // Acknowledge the interrupt
 }
 
-int read_timer()
+u32 get_timer()
 {
-  if (!running)
-  {
-    return time;
-  }
-  vblankCount++;
-  if (vblankCount % 59 == 0)
-  {
-    time++;
-    vblankCount = 0;
-  }
-  return time;
+  return decisecond;
 }
 
 void stop_timer()
 {
-  running = false;
+  REG_TM0CNT = 0;
+}
+
+void start_timer()
+{
+  decisecond = 0;
+  REG_TM0CNT = 0;          // Stop Timer 0
+  REG_TM0D = -0x4000 / 10; // Load the timer with the value for 1ms (assuming 16.78 MHz clock and /1024 prescaler)
+  REG_TM0CNT = TM_ENABLE | TM_IRQ | TM_FREQ_1024;
+  REG_ISR_MAIN = timer_irq;
+  REG_IE |= IRQ_TIMER0;
+  REG_IME = 1; // Tell the GBA to enable interrupts;
 }

@@ -243,7 +243,6 @@ static void end_game(Board *board, const bool hasWon)
     }
     draw_smile(SMILE_DEAD);
   }
-  // mgba_printf(LOG_INFO, "gameover");
 }
 
 static void check_win(Board *board)
@@ -354,13 +353,15 @@ static void clear_hovered_cells(Board *board)
 
 static void update_timer(Board *board)
 {
-  int currentTime = read_timer();
-  if (currentTime != board->time)
+  int currentTime = get_timer();
+  float currentSeconds = currentTime / 10;
+  float oldSeconds = board->time / 10;
+  if (abs(currentSeconds) != abs(oldSeconds))
   {
-    // mgba_printf(LOG_INFO, "update timer");
     board->time = currentTime;
-    draw_dot_display(currentTime, DOT_DISPLAY_SIDE_RIGHT);
+    draw_dot_display(abs(currentSeconds), DOT_DISPLAY_SIDE_RIGHT);
   }
+  board->time = currentTime;
 }
 
 void update_board(Board *board)
