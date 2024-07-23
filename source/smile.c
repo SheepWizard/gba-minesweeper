@@ -2,7 +2,7 @@
 
 void draw_smile(Smiles smile)
 {
-  const unsigned short *smileImage = smiley_playBitmap;
+  const unsigned int *smileImage = smiley_playBitmap;
 
   switch (smile)
   {
@@ -25,6 +25,6 @@ void draw_smile(Smiles smile)
   int y = 0;
   for (y = 0; y < 14; y++)
   {
-    memcpy(&vid_mem[(y + posY) * M3_WIDTH + posX], &smileImage[y * 14], 28);
+    memcpy(&vid_mem[(y + posY) * M3_WIDTH + posX], &smileImage[y * 7], 28);
   }
 }

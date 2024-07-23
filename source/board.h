@@ -25,7 +25,7 @@ typedef struct
   int nonMineCellsOpened;
   bool gameOver;
   int clicks;
-  int time;
+  u32 time;
   Difficulty difficulty;
 } Board;
 

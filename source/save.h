@@ -16,11 +16,10 @@ enum ErrorCode
 
 typedef struct SaveData
 {
-  u8 seed;
-  u8 beginnerScores[MAX_SCORES * 2];
-  u8 intermediateScores[MAX_SCORES * 2];
-  u8 expertScores[MAX_SCORES * 2];
+  u16 seed;
+  u32 beginnerScores[MAX_SCORES];
+  u32 intermediateScores[MAX_SCORES];
+  u32 expertScores[MAX_SCORES];
 } SaveData;
 
-int sram_read(SaveData *data);
-int sram_write(SaveData *data);
+EWRAM_CODE volatile SaveData *sram_read();

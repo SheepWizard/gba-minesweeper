@@ -4,7 +4,7 @@ static int NUMBER_WIDTH = 8;
 
 static void draw_number(char number, int posX, int posY)
 {
-  const unsigned short *numberImage = number_0Bitmap;
+  const unsigned int *numberImage = number_0Bitmap;
 
   switch (number)
   {
@@ -46,7 +46,7 @@ static void draw_number(char number, int posX, int posY)
   int y = 0;
   for (y = 0; y < 14; y++)
   {
-    memcpy(&vid_mem[(y + posY) * M3_WIDTH + posX], &numberImage[y * 8], 16);
+    memcpy(&vid_mem[(y + posY) * M3_WIDTH + posX], &numberImage[y * 4], 16);
   }
 }
 

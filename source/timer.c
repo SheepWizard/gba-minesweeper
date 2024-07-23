@@ -2,7 +2,7 @@
 
 volatile static u32 decisecond = 0;
 
-IWRAM_CODE volatile void timer_irq()
+IWRAM_CODE void timer_irq()
 {
   decisecond++;
   REG_IF = IRQ_TIMER0; // Acknowledge the interrupt

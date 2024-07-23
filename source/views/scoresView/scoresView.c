@@ -6,28 +6,28 @@ static void display_scores()
 {
   TTC *context = tte_get_context();
   context->eraseProc(0, 0, M3_WIDTH, M3_HEIGHT);
-  HighScores *highScores = malloc(sizeof(HighScores));
-  read_scores(highScores);
 
-  int scores[MAX_SCORES];
+  SaveData *saveData = read_scores();
+
+  u32 scores[MAX_SCORES];
 
   switch (currentPage)
   {
   case SCORES_PAGE_BEGINNER:
-    memcpy16(scores, highScores->beginnerScores, MAX_SCORES * 2);
+    memcpy32(scores, saveData->beginnerScores, MAX_SCORES);
     break;
   case SCORES_PAGE_INTERMEDIATE:
-    memcpy16(scores, highScores->intermediateScores, MAX_SCORES * 2);
+    memcpy32(scores, saveData->intermediateScores, MAX_SCORES);
     break;
   case SCORES_PAGE_EXPERT:
-    memcpy16(scores, highScores->expertScores, MAX_SCORES * 2);
+    memcpy32(scores, saveData->expertScores, MAX_SCORES);
     break;
   }
 
   int cursorX = 0;
   int cursorY = 0;
   tte_set_pos(cursorX, cursorY);
-  int i;
+  u32 i;
   for (i = 0; i < MAX_SCORES; i++)
   {
     char str[16];
@@ -36,8 +36,6 @@ static void display_scores()
     cursorY += 20;
     tte_set_pos(0, cursorY);
   }
-
-  free(highScores);
 }
 
 void init_scores_view()

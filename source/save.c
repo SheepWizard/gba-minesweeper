@@ -2,52 +2,13 @@
 
 #include "save.h"
 
-IWRAM_CODE static void sram_memcpy(volatile unsigned char *dst, const volatile unsigned char *src, size_t size)
+EWRAM_CODE volatile SaveData *save_data_get(void)
 {
-  for (; size > 0; --size)
-    *dst++ = *src++;
+  return (SaveData *)MEM_SRAM;
 }
 
-IWRAM_CODE static unsigned int sram_absmemcmp(const volatile unsigned char *dst, const volatile unsigned char *src, size_t size)
+EWRAM_CODE volatile SaveData *sram_read()
 {
-  while (size-- > 0)
-  {
-    unsigned int a = *dst++;
-    unsigned int b = *src++;
-    if (a != b)
-      return 1;
-  }
-
-  return 0;
-}
-
-int sram_read(SaveData *data)
-{
-  size_t size = sizeof(SaveData);
-  if (data == NULL)
-    return E_INVALID_PARAM;
-
-  if (size > SRAM_SIZE)
-    return E_OUT_OF_RANGE;
-
-  sram_memcpy((u8 *)data, sram_mem, size);
-
-  return 0;
-}
-
-int sram_write(SaveData *data)
-{
-  size_t size = sizeof(SaveData);
-  if (data == NULL)
-    return E_INVALID_PARAM;
-
-  if (size > SRAM_SIZE)
-    return E_OUT_OF_RANGE;
-
-  sram_memcpy(sram_mem, (u8 *)data, size);
-
-  if (sram_absmemcmp(sram_mem, (u8 *)data, size))
-    return E_VERIFY_FAIL;
-
-  return 0;
+  volatile SaveData *saveData = save_data_get();
+  return saveData;
 }

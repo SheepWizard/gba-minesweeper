@@ -2,30 +2,16 @@
 
 void load_seed()
 {
-  SaveData *data = malloc(sizeof(SaveData));
-  int code = sram_read(data);
-  if (code != E_SUCCESS)
-  {
-    return;
-  }
+  volatile SaveData *saveData = sram_read();
 
-  srand(data->seed);
-  free(data);
+  srand(saveData->seed);
 }
 
 void update_seed(int value)
 {
-  SaveData *data = malloc(sizeof(SaveData));
-  int code = sram_read(data);
-  if (code != E_SUCCESS)
-  {
-    return;
-  }
+  volatile SaveData *saveData = sram_read();
 
-  int newSeed = ((u16)data->seed + value);
+  u32 newSeed = (saveData->seed + value);
   srand(newSeed);
-  data->seed = (u8)newSeed;
-
-  sram_write(data);
-  free(data);
+  saveData->seed = newSeed;
 }

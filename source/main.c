@@ -1,8 +1,8 @@
 // export DEVKITARM=/Users/meow/Documents/devkitpro/devkitARM
 // export DEVKITPRO=/Users/meow/Documents/devkitpro
 // grit cell_hidden.bmp -gb -gu16
-// mgba gba-minesweeper.gba -3 -l 216
 // make -f Makefile
+// mgba gba-minesweeper.gba -3 -l 216
 #include "tonc.h"
 #include "view.h"
 #include "seed.h"

@@ -353,7 +353,7 @@ static void clear_hovered_cells(Board *board)
 
 static void update_timer(Board *board)
 {
-  int currentTime = get_timer();
+  u32 currentTime = get_timer();
   float currentSeconds = currentTime / 10;
   float oldSeconds = board->time / 10;
   if (abs(currentSeconds) != abs(oldSeconds))

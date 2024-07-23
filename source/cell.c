@@ -25,7 +25,7 @@ void flag_cell(Cell *cell)
 void draw_cell(Cell *inCell, int maxX, int maxY)
 {
 
-  const unsigned short *cellImage = cell_hiddenBitmap;
+  const unsigned int *cellImage = cell_hiddenBitmap;
 
   if (inCell->isOpen)
   {
@@ -105,6 +105,6 @@ void draw_cell(Cell *inCell, int maxX, int maxY)
   int y;
   for (y = 0; y < CELL_SIZE; y++)
   {
-    memcpy(&vid_mem[(y + yOffset) * M3_WIDTH + xOffset], &cellImage[y * CELL_SIZE], 16);
+    memcpy(&vid_mem[(y + yOffset) * M3_WIDTH + xOffset], &cellImage[y * (CELL_SIZE / 2)], 16);
   }
 }
