@@ -1,6 +1,6 @@
 #include "highScores.h"
 
-static void add_highScore(const u32 score, volatile u32 *list)
+static void add_highScore(const u32 score, u32 *list)
 {
   u32 i;
   u32 prev = -1;
@@ -23,9 +23,9 @@ static void add_highScore(const u32 score, volatile u32 *list)
 
 void save_score(const ScoreSave type, const u32 score)
 {
-  volatile SaveData *saveData = sram_read();
+  SaveData *saveData = sram_read();
 
-  mgba_printf(LOG_INFO, "%d", score);
+  mgba_printf(LOG_INFO, "time %d", score);
 
   switch (type)
   {
@@ -39,10 +39,12 @@ void save_score(const ScoreSave type, const u32 score)
     add_highScore(score, saveData->expertScores);
     break;
   }
+
+  sram_write(saveData);
 }
 
-volatile SaveData *read_scores()
+SaveData *read_scores()
 {
-  volatile SaveData *saveData = sram_read();
+  SaveData *saveData = sram_read();
   return saveData;
 }

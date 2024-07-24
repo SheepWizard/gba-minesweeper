@@ -2,13 +2,22 @@
 
 #include "save.h"
 
-EWRAM_CODE volatile SaveData *save_data_get(void)
+IWRAM_CODE static void sram_memcpy(volatile unsigned char *dst, const volatile unsigned char *src, size_t size)
 {
-  return (SaveData *)MEM_SRAM;
+  for (; size > 0; --size)
+    *dst++ = *src++;
 }
 
-EWRAM_CODE volatile SaveData *sram_read()
+EWRAM_CODE void sram_write(SaveData *saveData)
 {
-  volatile SaveData *saveData = save_data_get();
+  sram_memcpy(sram_mem, (u8 *)saveData, sizeof(SaveData));
+  free(saveData);
+}
+
+EWRAM_CODE SaveData *sram_read()
+{
+  SaveData *saveData = malloc(sizeof(SaveData));
+  sram_memcpy((u8 *)saveData, sram_mem, sizeof(SaveData));
+
   return saveData;
 }

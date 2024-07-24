@@ -36,6 +36,8 @@ static void display_scores()
     cursorY += 20;
     tte_set_pos(0, cursorY);
   }
+
+  free(saveData);
 }
 
 void init_scores_view()

@@ -11,7 +11,7 @@ void update_seed(int value)
 {
   volatile SaveData *saveData = sram_read();
 
-  u32 newSeed = (saveData->seed + value);
+  u16 newSeed = (saveData->seed + value);
   srand(newSeed);
   saveData->seed = newSeed;
 }

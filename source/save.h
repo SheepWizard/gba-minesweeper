@@ -1,6 +1,7 @@
 #pragma once
 #include "tonc.h"
 #include <stddef.h>
+#include <stdlib.h>
 
 #define MAX_SCORES 5
 
@@ -22,4 +23,5 @@ typedef struct SaveData
   u32 expertScores[MAX_SCORES];
 } SaveData;
 
-EWRAM_CODE volatile SaveData *sram_read();
+EWRAM_CODE void sram_write(SaveData *saveData);
+EWRAM_CODE SaveData *sram_read();

@@ -412,6 +412,5 @@ void update_board(Board *board)
     }
   }
   // Time not updating properly on new game
-  // mgba_printf(LOG_INFO, "play");
   update_timer(board);
 }

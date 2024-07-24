@@ -10,4 +10,4 @@ typedef enum
 } ScoreSave;
 
 void save_score(const ScoreSave type, const u32 score);
-volatile SaveData *read_scores();
+SaveData *read_scores();
