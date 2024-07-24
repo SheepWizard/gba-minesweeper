@@ -6,6 +6,7 @@
 #include "timer.h"
 #include "smile.h"
 #include "highScores.h"
+#include "3bv.h"
 #include <stdlib.h>
 
 typedef enum

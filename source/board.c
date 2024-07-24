@@ -194,6 +194,11 @@ void new_board(Board *board, const int maxX, const int maxY, int minesCount, Dif
       draw_cell(&board->cells[y * maxX + x], board->maxX, board->maxY);
     }
   }
+
+  int bv = calculate_3bv(board->cells, board->maxX, board->maxY);
+
+  mgba_printf(LOG_INFO, "%d", bv);
+
   stop_timer();
   reset_selector(board->maxX, board->maxY);
   draw_selector(board->maxX, board->maxY);
