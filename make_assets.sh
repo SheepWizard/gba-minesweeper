@@ -33,7 +33,7 @@ grit $ASSETS/number_9.bmp -gb -gB16
 grit $ASSETS/number_blank.bmp -gb -gB16
 grit $ASSETS/smiley_dead.bmp -gb -gB16
 grit $ASSETS/smiley_oface.bmp -gb -gB16
-grit $ASSETS/smiley_play.bmp -gb -gB16
+grit $ASSETS/smiley_play.png -gb -gB16
 grit $ASSETS/smiley_win.bmp -gb -gB16
 grit $ASSETS/title_screen.bmp -gb -gB16
 grit $ASSETS/menu_screen.bmp -gb -gB16
