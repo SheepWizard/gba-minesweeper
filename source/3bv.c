@@ -1,6 +1,6 @@
 #include "3bv.h"
 
-void flood_fill(const Cell *cells, const int maxX, const int maxY, int x, int y, bool *marked)
+static void flood_fill(const Cell *cells, const int maxX, const int maxY, int x, int y, bool *marked)
 {
   if (x < 0 || y < 0 || x >= maxX || y >= maxY)
   {
