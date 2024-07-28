@@ -3,24 +3,26 @@
 static void add_highScore(const WinScore newScore, WinScore *list)
 {
   int i;
-  WinScore prev;
-  prev.time = -1;
-  for (i = 0; i < MAX_SCORES; i++)
+  int replaceIndex = 0;
+
+  for (i = MAX_SCORES - 1; i >= 0; i--)
   {
-    mgba_printf(LOG_INFO, "%d", list[i]);
-    if (prev.time != -1)
+    if (list[i].time > newScore.time || list[i].time == -1)
     {
-      int temp = list[i].time;
-      list[i] = prev;
-      prev.time = temp;
+      replaceIndex = i;
     }
-    else if (list[i].time > newScore.time)
-    {
-      prev = list[i];
-      list[i].time = newScore.time;
-      list[i]._3bv = newScore._3bv;
-      list[i].flags = newScore.flags;
-    }
+  }
+
+  WinScore prev = list[replaceIndex];
+  list[replaceIndex].time = newScore.time;
+  list[replaceIndex]._3bv = newScore._3bv;
+  list[replaceIndex].flags = newScore.flags;
+
+  for (i = replaceIndex + 1; i < MAX_SCORES; i++)
+  {
+    WinScore temp = list[i];
+    list[i] = prev;
+    prev = temp;
   }
 }
 

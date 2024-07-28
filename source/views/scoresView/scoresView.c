@@ -30,8 +30,8 @@ static void display_scores()
   u32 i;
   for (i = 0; i < MAX_SCORES; i++)
   {
-    char str[16];
-    sprintf(str, "%d", scores[i].time);
+    char str[sizeof(WinScore)];
+    sprintf(str, "%d, %d, %d", scores[i].time, scores[i].flags, scores[i]._3bv);
     tte_write(str);
     cursorY += 20;
     tte_set_pos(0, cursorY);
