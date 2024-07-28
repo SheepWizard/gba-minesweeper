@@ -1,42 +1,43 @@
 #include "highScores.h"
 
-static void add_highScore(const u32 score, u32 *list)
+static void add_highScore(const WinScore newScore, WinScore *list)
 {
-  u32 i;
-  u32 prev = -1;
+  int i;
+  WinScore prev;
+  prev.time = -1;
   for (i = 0; i < MAX_SCORES; i++)
   {
     mgba_printf(LOG_INFO, "%d", list[i]);
-    if (prev != -1)
+    if (prev.time != -1)
     {
-      int temp = list[i];
+      int temp = list[i].time;
       list[i] = prev;
-      prev = temp;
+      prev.time = temp;
     }
-    else if (list[i] > score || list[i] == 4294967295)
+    else if (list[i].time > newScore.time)
     {
       prev = list[i];
-      list[i] = score;
+      list[i].time = newScore.time;
+      list[i]._3bv = newScore._3bv;
+      list[i].flags = newScore.flags;
     }
   }
 }
 
-void save_score(const ScoreSave type, const u32 score)
+void save_score(const ScoreSave type, const WinScore newScore)
 {
   SaveData *saveData = sram_read();
-
-  mgba_printf(LOG_INFO, "time %d", score);
 
   switch (type)
   {
   case SAVE_BEGINNER:
-    add_highScore(score, saveData->beginnerScores);
+    add_highScore(newScore, saveData->beginnerScores);
     break;
   case SAVE_INTERMEDIATE:
-    add_highScore(score, saveData->intermediateScores);
+    add_highScore(newScore, saveData->intermediateScores);
     break;
   case SAVE_EXPERT:
-    add_highScore(score, saveData->expertScores);
+    add_highScore(newScore, saveData->expertScores);
     break;
   }
 

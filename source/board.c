@@ -195,10 +195,6 @@ void new_board(Board *board, const int maxX, const int maxY, int minesCount, Dif
     }
   }
 
-  int bv = calculate_3bv(board->cells, board->maxX, board->maxY);
-
-  mgba_printf(LOG_INFO, "%d", bv);
-
   stop_timer();
   reset_selector(board->maxX, board->maxY);
   draw_selector(board->maxX, board->maxY);
@@ -233,7 +229,14 @@ static void end_game(Board *board, const bool hasWon)
     }
     draw_dot_display(board->minesCount - board->flagsPlaced, DOT_DISPLAY_SIDE_LEFT);
     draw_smile(SMILE_WIN);
-    save_score(board->difficulty, board->time);
+    int _3bv = calculate_3bv(board->cells, board->maxX, board->maxY);
+
+    WinScore newScore;
+    newScore.time = board->time;
+    newScore._3bv = _3bv;
+    newScore.flags = board->flagsPlaced;
+
+    save_score(board->difficulty, newScore);
   }
   else
   {

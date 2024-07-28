@@ -9,5 +9,5 @@ typedef enum
   SAVE_EXPERT
 } ScoreSave;
 
-void save_score(const ScoreSave type, const u32 score);
+void save_score(const ScoreSave type, const WinScore newScore);
 SaveData *read_scores();

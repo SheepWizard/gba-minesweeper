@@ -15,12 +15,19 @@ enum ErrorCode
   E_TIMEOUT,
 };
 
+typedef struct WinScore
+{
+  u32 time;
+  int _3bv;
+  int flags;
+} WinScore;
+
 typedef struct SaveData
 {
   u16 seed;
-  u32 beginnerScores[MAX_SCORES];
-  u32 intermediateScores[MAX_SCORES];
-  u32 expertScores[MAX_SCORES];
+  WinScore beginnerScores[MAX_SCORES];
+  WinScore intermediateScores[MAX_SCORES];
+  WinScore expertScores[MAX_SCORES];
 } SaveData;
 
 EWRAM_CODE void sram_write(SaveData *saveData);

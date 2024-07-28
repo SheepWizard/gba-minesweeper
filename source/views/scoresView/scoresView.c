@@ -9,18 +9,18 @@ static void display_scores()
 
   SaveData *saveData = read_scores();
 
-  u32 scores[MAX_SCORES];
+  WinScore scores[MAX_SCORES];
 
   switch (currentPage)
   {
   case SCORES_PAGE_BEGINNER:
-    memcpy32(scores, saveData->beginnerScores, MAX_SCORES);
+    memcpy(scores, saveData->beginnerScores, sizeof(WinScore) * MAX_SCORES);
     break;
   case SCORES_PAGE_INTERMEDIATE:
-    memcpy32(scores, saveData->intermediateScores, MAX_SCORES);
+    memcpy(scores, saveData->intermediateScores, sizeof(WinScore) * MAX_SCORES);
     break;
   case SCORES_PAGE_EXPERT:
-    memcpy32(scores, saveData->expertScores, MAX_SCORES);
+    memcpy(scores, saveData->expertScores, sizeof(WinScore) * MAX_SCORES);
     break;
   }
 
@@ -31,7 +31,7 @@ static void display_scores()
   for (i = 0; i < MAX_SCORES; i++)
   {
     char str[16];
-    sprintf(str, "%d", scores[i]);
+    sprintf(str, "%d", scores[i].time);
     tte_write(str);
     cursorY += 20;
     tte_set_pos(0, cursorY);
