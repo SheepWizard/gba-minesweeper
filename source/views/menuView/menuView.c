@@ -1,23 +1,29 @@
 #include "menuView.h"
 
-static const int MAX_SELECTOR_POSITION = 3;
 static int selectorPosition = 0;
 
-// Make this better
 static void update_menu_selector(const int previousPosition)
 {
-  int yOffset = (SELECTOR_SIZE * previousPosition) + 30 + (SELECTOR_GAP * previousPosition);
+  int yOffset = (SELECTOR_GAP * previousPosition) + SELECTOR_Y_OFFSET;
 
   int i;
   for (i = 0; i < SELECTOR_SIZE; i++)
   {
-    memcpy(&vid_mem[(i + yOffset) * M3_WIDTH + 20], &menu_screenBitmap[(i + yOffset) * M3_WIDTH + 24], 20);
+    memcpy(&vid_mem[(i + yOffset) * M3_WIDTH + SELECTOR_X_OFFSET], &menu_screenBitmap[(i + yOffset) * (M3_WIDTH / 2) + (SELECTOR_X_OFFSET / 2)], SELECTOR_SIZE * 2);
   }
 
-  yOffset = (SELECTOR_SIZE * selectorPosition) + 40;
-  for (i = 0; i < SELECTOR_SIZE; i++)
+  yOffset = (SELECTOR_GAP * selectorPosition) + SELECTOR_Y_OFFSET;
+  int x, y;
+  for (y = 0; y < SELECTOR_SIZE; y++)
   {
-    memcpy(&vid_mem[(i + yOffset) * M3_WIDTH + 20], &cursorBitmap[i * (SELECTOR_SIZE / 2)], SELECTOR_SIZE * 2);
+    for (x = 0; x < SELECTOR_SIZE; x++)
+    {
+      if (cursorBitmap[y * (SELECTOR_SIZE / 2) + (x / 2)] == 0x00000000)
+      {
+        continue;
+      }
+      memcpy(&vid_mem[(x + yOffset) * M3_WIDTH + (SELECTOR_X_OFFSET + y)], &cursorBitmap[y * (SELECTOR_SIZE / 2) + (x / 2)], 2);
+    }
   }
 }
 
