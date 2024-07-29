@@ -105,6 +105,6 @@ void draw_cell(Cell *inCell, int maxX, int maxY)
   int y;
   for (y = 0; y < CELL_SIZE; y++)
   {
-    memcpy(&vid_mem[(y + yOffset) * M3_WIDTH + xOffset], &cellImage[y * (CELL_SIZE / 2)], 16);
+    memcpy(&vid_mem[(y + yOffset) * M3_WIDTH + xOffset], &cellImage[y * (CELL_SIZE / 2)], CELL_SIZE * 2);
   }
 }

@@ -35,6 +35,6 @@ grit $ASSETS/smiley_dead.bmp -gb -gB16
 grit $ASSETS/smiley_oface.bmp -gb -gB16
 grit $ASSETS/smiley_play.png -gb -gB16
 grit $ASSETS/smiley_win.bmp -gb -gB16
-grit $ASSETS/title_screen.bmp -gb -gB16
-grit $ASSETS/menu_screen.bmp -gb -gB16
-grit $ASSETS/cursor.bmp -gb -gu16
+grit $ASSETS/title_screen.png -gb -gB16
+grit $ASSETS/menu_screen.png -gb -gB16
+grit $ASSETS/cursor.png -gb -gB16
