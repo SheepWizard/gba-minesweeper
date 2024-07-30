@@ -7,6 +7,8 @@
 #include "view.h"
 #include "seed.h"
 
+// bug, go expert to beginner, random cell
+
 int main()
 {
 	REG_DISPCNT = DCNT_MODE3 | DCNT_BG2;

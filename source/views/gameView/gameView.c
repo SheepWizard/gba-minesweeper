@@ -31,7 +31,7 @@ void set_difficulty(Difficulty difficulty)
 
 void init_game_view()
 {
-  m3_fill(CLR_GRAY);
+  memcpy(vid_mem, game_backgroundBitmap, M3_SIZE);
   board = malloc(sizeof(Board));
   new_board(board, x, y, mines, currentDifficulty);
 }

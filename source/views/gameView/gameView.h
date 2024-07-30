@@ -1,6 +1,8 @@
 #pragma once
 #include "../../board.h"
 #include "../../view.h"
+#include "../../assets/game_background.h"
+#include <string.h>
 
 void set_difficulty(Difficulty difficulty);
 void update_game_view();

@@ -39,3 +39,4 @@ grit $ASSETS/title_screen.png -gb -gB16
 grit $ASSETS/title_screen2.png -gb -gB16
 grit $ASSETS/menu_screen.png -gb -gB16
 grit $ASSETS/cursor.png -gb -gB16
+grit $ASSETS/game_background.png -gb -gB16
