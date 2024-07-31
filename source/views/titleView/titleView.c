@@ -17,6 +17,8 @@ static void draw_title()
 
 void init_title_view()
 {
+  firstScreen = true;
+  count = 0;
   draw_title();
 }
 

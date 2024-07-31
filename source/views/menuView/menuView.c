@@ -86,6 +86,11 @@ void update_menu_view()
     update_menu_selector(oldPosition);
   }
 
+  if (key_hit(KEY_START))
+  {
+    set_view(VIEW_TITLE_SCREEN);
+  }
+
   if (key_released(KEY_A))
   {
     select_option();
