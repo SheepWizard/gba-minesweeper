@@ -5,3 +5,4 @@ source/assets
 build/*
 .DS_Store
 .vscode
+*.kra
