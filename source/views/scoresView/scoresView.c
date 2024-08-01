@@ -28,7 +28,7 @@ static void display_scores()
   int cursorY = 65;
 
   tte_set_pos(cursorX, cursorY);
-  u32 i;
+  int i;
   for (i = scrollOffset; i < scrollOffset + SCORES_PER_PAGE; i++)
   {
     if (scores[i].time == -1)
