@@ -266,6 +266,8 @@ static void end_game(Board *board, const bool hasWon)
     }
     draw_smile(SMILE_DEAD);
   }
+  Selector s = get_selector_position();
+  draw_cell(&board->cells[s.posY * board->maxX + s.posX], board->maxX, board->maxY);
 }
 
 static void check_win(Board *board)
@@ -421,12 +423,12 @@ void update_board(Board *board)
   {
     flag_button_pressed(board, currentCell);
   }
-  if (key_is_down(KEY_R) && currentCell->isOpen && currentCell->number != 0)
+  if ((key_is_down(KEY_R) || key_is_down(KEY_L)) && currentCell->isOpen && currentCell->number != 0)
   {
     chord_hover(board, currentCell);
     draw_selector(board->maxX, board->maxY);
   }
-  if (key_released(KEY_R))
+  if (key_released(KEY_R) || key_released(KEY_L))
   {
     clear_hovered_cells(board);
     if (currentCell->isOpen && currentCell->number != 0)
