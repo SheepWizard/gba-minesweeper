@@ -4,8 +4,7 @@ static ScoresPage currentPage = SCORES_PAGE_BEGINNER;
 
 static void display_scores()
 {
-  TTC *context = tte_get_context();
-  context->eraseProc(0, 0, M3_WIDTH, M3_HEIGHT);
+  memcpy(vid_mem, highscore_screenBitmap, M3_SIZE);
 
   SaveData *saveData = read_scores();
 
@@ -24,17 +23,33 @@ static void display_scores()
     break;
   }
 
-  int cursorX = 0;
-  int cursorY = 0;
+  int cursorX = 10;
+  int cursorY = 50;
+
   tte_set_pos(cursorX, cursorY);
   u32 i;
   for (i = 0; i < MAX_SCORES; i++)
   {
-    char str[sizeof(WinScore)];
-    sprintf(str, "%d, %d, %d", scores[i].time, scores[i].flags, scores[i]._3bv);
-    tte_write(str);
+    if (scores[i].time == -1)
+    {
+      char str[8];
+      sprintf(str, "-------");
+      tte_write(str);
+    }
+    else
+    {
+      int totalSeconds = scores[i].time / 10;
+      int minutes = totalSeconds / 60;
+      int seconds = totalSeconds % 60;
+      int remainingDeciseconds = scores[i].time % 10;
+      minutes = minutes > 99 ? 99 : minutes;
+      char str[13];
+      sprintf(str, "%02d:%02d.%d", minutes, seconds, remainingDeciseconds);
+      tte_write(str);
+    }
+
     cursorY += 20;
-    tte_set_pos(0, cursorY);
+    tte_set_pos(cursorX, cursorY);
   }
 
   free(saveData);
@@ -45,6 +60,7 @@ void init_scores_view()
   memcpy(vid_mem, highscore_screenBitmap, M3_SIZE);
   currentPage = SCORES_PAGE_BEGINNER;
   tte_init_bmp_default(3);
+  tte_set_ink(CLR_BLACK);
   display_scores();
 }
 
