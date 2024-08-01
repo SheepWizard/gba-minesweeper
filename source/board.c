@@ -195,6 +195,7 @@ void new_board(Board *board, const int maxX, const int maxY, int minesCount, Dif
 
   // frame around board
   m3_frame(xOffset - 1, yOffset - 1, xOffset + (maxX * CELL_SIZE) + 1, yOffset + (maxY * CELL_SIZE) + 1, FRAME_COLOUR);
+  m3_frame(xOffset - 2, yOffset - 2, xOffset + (maxX * CELL_SIZE) + 2, yOffset + (maxY * CELL_SIZE) + 2, FRAME_COLOUR2);
 
   for (y = 0; y < maxY; y++)
   {

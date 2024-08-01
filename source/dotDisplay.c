@@ -6,8 +6,10 @@ void draw_dot_display_frames()
   int posY = TOP_PADDING;
 
   m3_frame(xOffset - 1, posY - 1, xOffset + (NUMBER_WIDTH * 3) + 1, posY + NUMBER_HEIGHT + 1, FRAME_COLOUR);
+  m3_frame(xOffset - 2, posY - 2, xOffset + (NUMBER_WIDTH * 3) + 2, posY + NUMBER_HEIGHT + 2, FRAME_COLOUR2);
   xOffset = M3_WIDTH - (NUMBER_WIDTH * 3) + -xOffset;
   m3_frame(xOffset - 1, posY - 1, xOffset + (NUMBER_WIDTH * 3) + 1, posY + NUMBER_HEIGHT + 1, FRAME_COLOUR);
+  m3_frame(xOffset - 2, posY - 2, xOffset + (NUMBER_WIDTH * 3) + 2, posY + NUMBER_HEIGHT + 2, FRAME_COLOUR2);
 }
 
 static void draw_number(const char number, const int posX)

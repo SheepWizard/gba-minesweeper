@@ -6,6 +6,7 @@ void draw_smile_frame()
   int posY = TOP_PADDING;
 
   m3_frame(posX - 1, posY - 1, posX + SMILE_SIZE + 1, posY + SMILE_SIZE + 1, FRAME_COLOUR);
+  m3_frame(posX - 2, posY - 2, posX + SMILE_SIZE + 2, posY + SMILE_SIZE + 2, FRAME_COLOUR2);
 }
 
 void draw_smile(Smiles smile)
