@@ -5,6 +5,8 @@
 #include "../../view.h"
 #include "../../assets/highscore_screen.h"
 
+static const int SCORES_PER_PAGE = 6;
+
 typedef enum
 {
   SCORES_PAGE_BEGINNER,
