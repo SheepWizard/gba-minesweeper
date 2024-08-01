@@ -14,10 +14,14 @@
 #include "assets/number_9.h"
 #include "assets/number_blank.h"
 
+static int NUMBER_WIDTH = 8;
+static int NUMBER_HEIGHT = 14;
+
 typedef enum
 {
   DOT_DISPLAY_SIDE_LEFT,
   DOT_DISPLAY_SIDE_RIGHT
 } DotDisplaySide;
 
-void draw_dot_display(int number, DotDisplaySide side);
+void draw_dot_display_frames();
+void draw_dot_display(int number, const DotDisplaySide side);

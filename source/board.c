@@ -187,6 +187,15 @@ void new_board(Board *board, const int maxX, const int maxY, int minesCount, Dif
     }
   }
 
+  int xCenter = (M3_WIDTH / 2) - (maxX * CELL_SIZE) / 2;
+  int yCenter = (M3_HEIGHT / 2) - (maxY * CELL_SIZE) / 2;
+
+  int yOffset = yCenter + (TOP_PADDING * 2);
+  int xOffset = xCenter;
+
+  // frame around board
+  m3_frame(xOffset - 1, yOffset - 1, xOffset + (maxX * CELL_SIZE) + 1, yOffset + (maxY * CELL_SIZE) + 1, FRAME_COLOUR);
+
   for (y = 0; y < maxY; y++)
   {
     for (x = 0; x < maxX; x++)
@@ -198,7 +207,9 @@ void new_board(Board *board, const int maxX, const int maxY, int minesCount, Dif
   stop_timer();
   reset_selector(board->maxX, board->maxY);
   draw_selector(board->maxX, board->maxY);
+  draw_smile_frame();
   draw_smile(SMILE_PLAY);
+  draw_dot_display_frames();
   draw_dot_display(board->minesCount - board->flagsPlaced, DOT_DISPLAY_SIDE_LEFT);
   draw_dot_display(0, DOT_DISPLAY_SIDE_RIGHT);
 }

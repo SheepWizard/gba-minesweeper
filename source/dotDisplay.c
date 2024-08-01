@@ -1,8 +1,16 @@
 #include "dotDisplay.h"
 
-static int NUMBER_WIDTH = 8;
+void draw_dot_display_frames()
+{
+  int xOffset = (M3_WIDTH / 2) / 2 - (NUMBER_WIDTH * 3);
+  int posY = TOP_PADDING;
 
-static void draw_number(char number, int posX, int posY)
+  m3_frame(xOffset - 1, posY - 1, xOffset + (NUMBER_WIDTH * 3) + 1, posY + NUMBER_HEIGHT + 1, FRAME_COLOUR);
+  xOffset = M3_WIDTH - (NUMBER_WIDTH * 3) + -xOffset;
+  m3_frame(xOffset - 1, posY - 1, xOffset + (NUMBER_WIDTH * 3) + 1, posY + NUMBER_HEIGHT + 1, FRAME_COLOUR);
+}
+
+static void draw_number(const char number, const int posX)
 {
   const unsigned int *numberImage = number_0Bitmap;
 
@@ -42,26 +50,26 @@ static void draw_number(char number, int posX, int posY)
     break;
   }
 
-  posY += TOP_PADDING;
+  int posY = TOP_PADDING;
   int y = 0;
-  for (y = 0; y < 14; y++)
+  for (y = 0; y < NUMBER_HEIGHT; y++)
   {
-    memcpy(&vid_mem[(y + posY) * M3_WIDTH + posX], &numberImage[y * 4], 16);
+    memcpy(&vid_mem[(y + posY) * M3_WIDTH + posX], &numberImage[y * (NUMBER_WIDTH / 2)], NUMBER_WIDTH * 2);
   }
 }
 
-void draw_dot_display(int number, DotDisplaySide side)
+void draw_dot_display(int number, const DotDisplaySide side)
 {
   number = clamp(number, -99, 999);
   char str[4];
   sprintf(str, "%d", number);
   int offset = 3 - strlen(str);
 
-  int xOffset = (M3_WIDTH / 2) / 2 - (8 * 3);
+  int xOffset = (M3_WIDTH / 2) / 2 - (NUMBER_WIDTH * 3);
   int startX = xOffset;
   if (side == DOT_DISPLAY_SIDE_RIGHT)
   {
-    startX = M3_WIDTH - 0 - (NUMBER_WIDTH * 3) + -xOffset;
+    startX = M3_WIDTH - (NUMBER_WIDTH * 3) + -xOffset;
   }
   int i;
   for (i = 0; i < 3; i++)
@@ -71,16 +79,16 @@ void draw_dot_display(int number, DotDisplaySide side)
       char tkn = str[i - offset];
       if (tkn == '-')
       {
-        draw_number('-', startX, 0);
+        draw_number('-', startX);
       }
       else
       {
-        draw_number(tkn, startX, 0);
+        draw_number(tkn, startX);
       }
     }
     else
     {
-      draw_number('0', startX, 0);
+      draw_number('0', startX);
     }
     startX += NUMBER_WIDTH;
   }

@@ -18,3 +18,4 @@ typedef enum
 } Smiles;
 
 void draw_smile(Smiles smile);
+void draw_smile_frame();

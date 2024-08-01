@@ -1,5 +1,13 @@
 #include "smile.h"
 
+void draw_smile_frame()
+{
+  int posX = (M3_WIDTH / 2) - (SMILE_SIZE / 2);
+  int posY = TOP_PADDING;
+
+  m3_frame(posX - 1, posY - 1, posX + SMILE_SIZE + 1, posY + SMILE_SIZE + 1, FRAME_COLOUR);
+}
+
 void draw_smile(Smiles smile)
 {
   const unsigned int *smileImage = smiley_playBitmap;
