@@ -208,6 +208,8 @@ void new_board(Board *board, const int maxX, const int maxY, int minesCount, Dif
   stop_timer();
   reset_timer();
   reset_selector(board->maxX, board->maxY);
+  oldSelector.posX = 0;
+  oldSelector.posY = 0;
   draw_selector(board->maxX, board->maxY);
   draw_smile_frame();
   draw_smile(SMILE_PLAY);
