@@ -14,8 +14,8 @@
 #include "assets/number_9.h"
 #include "assets/number_blank.h"
 
-static int NUMBER_WIDTH = 8;
-static int NUMBER_HEIGHT = 14;
+static const int NUMBER_WIDTH = 8;
+static const int NUMBER_HEIGHT = 14;
 
 typedef enum
 {
