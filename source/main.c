@@ -7,7 +7,10 @@
 #include "view.h"
 #include "seed.h"
 
-// bug, go expert to beginner, random cell
+// BUGS
+//  bug, go expert to beginner, random cell
+//  timer display not reset on new game
+//  minus numbers show extra 0
 
 int main()
 {
