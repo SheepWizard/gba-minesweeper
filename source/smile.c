@@ -19,12 +19,12 @@ void draw_smile(Smiles smile)
     break;
   }
 
-  int posX = (M3_WIDTH / 2) - (14 / 2);
+  int posX = (M3_WIDTH / 2) - (SMILE_SIZE / 2);
   int posY = TOP_PADDING;
 
   int y = 0;
-  for (y = 0; y < 14; y++)
+  for (y = 0; y < SMILE_SIZE; y++)
   {
-    memcpy(&vid_mem[(y + posY) * M3_WIDTH + posX], &smileImage[y * 7], 28);
+    memcpy(&vid_mem[(y + posY) * M3_WIDTH + posX], &smileImage[y * (SMILE_SIZE / 2)], SMILE_SIZE * 2);
   }
 }

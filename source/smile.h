@@ -7,6 +7,8 @@
 #include "assets/smiley_dead.h"
 #include "assets/smiley_win.h"
 
+static const int SMILE_SIZE = 16;
+
 typedef enum
 {
   SMILE_DEAD,

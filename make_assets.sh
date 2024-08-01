@@ -31,10 +31,10 @@ grit $ASSETS/number_7.bmp -gb -gB16
 grit $ASSETS/number_8.bmp -gb -gB16
 grit $ASSETS/number_9.bmp -gb -gB16
 grit $ASSETS/number_blank.bmp -gb -gB16
-grit $ASSETS/smiley_dead.bmp -gb -gB16
-grit $ASSETS/smiley_oface.bmp -gb -gB16
+grit $ASSETS/smiley_dead.png -gb -gB16
+grit $ASSETS/smiley_oface.png -gb -gB16
 grit $ASSETS/smiley_play.png -gb -gB16
-grit $ASSETS/smiley_win.bmp -gb -gB16
+grit $ASSETS/smiley_win.png -gb -gB16
 grit $ASSETS/title_screen.png -gb -gB16
 grit $ASSETS/title_screen2.png -gb -gB16
 grit $ASSETS/menu_screen.png -gb -gB16
