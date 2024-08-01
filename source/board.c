@@ -206,6 +206,7 @@ void new_board(Board *board, const int maxX, const int maxY, int minesCount, Dif
   }
 
   stop_timer();
+  reset_timer();
   reset_selector(board->maxX, board->maxY);
   draw_selector(board->maxX, board->maxY);
   draw_smile_frame();
@@ -431,6 +432,5 @@ void update_board(Board *board)
       chord(board, currentCell);
     }
   }
-  // Time not updating properly on new game
   update_timer(board);
 }

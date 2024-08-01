@@ -4,3 +4,4 @@
 u32 get_timer();
 void stop_timer();
 void start_timer();
+void reset_timer();

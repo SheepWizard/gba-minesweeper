@@ -18,6 +18,11 @@ void stop_timer()
   REG_TM0CNT = 0;
 }
 
+void reset_timer()
+{
+  decisecond = 0;
+}
+
 void start_timer()
 {
   decisecond = 0;

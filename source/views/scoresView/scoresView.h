@@ -3,6 +3,7 @@
 #include <string.h>
 #include "../../highScores.h"
 #include "../../view.h"
+#include "../../assets/highscore_screen.h"
 
 typedef enum
 {

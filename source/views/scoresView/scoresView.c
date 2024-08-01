@@ -42,7 +42,7 @@ static void display_scores()
 
 void init_scores_view()
 {
-  m3_fill(CLR_BLACK);
+  memcpy(vid_mem, highscore_screenBitmap, M3_SIZE);
   currentPage = SCORES_PAGE_BEGINNER;
   tte_init_bmp_default(3);
   display_scores();
