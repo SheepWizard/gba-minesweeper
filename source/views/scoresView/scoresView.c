@@ -48,10 +48,11 @@ static void display_scores()
       float _3bvs = (float)scores[i]._3bv / (float)totalSeconds;
 
       char str[355];
-      sprintf(str, "%02d)  %02d:%02d.%d                                 %d    %.3f", (i + 1),
+      sprintf(str, "%02d)  %02d:%02d.%d                   %d    %d    %.3f", (i + 1),
               minutes,
               seconds,
               remainingDeciseconds,
+              scores[i].noFlag,
               scores[i]._3bv,
               _3bvs);
       tte_write(str);

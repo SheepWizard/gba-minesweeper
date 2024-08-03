@@ -16,7 +16,7 @@ static void add_highScore(const WinScore newScore, WinScore *list)
   WinScore prev = list[replaceIndex];
   list[replaceIndex].time = newScore.time;
   list[replaceIndex]._3bv = newScore._3bv;
-  list[replaceIndex].flags = newScore.flags;
+  list[replaceIndex].noFlag = newScore.noFlag;
 
   for (i = replaceIndex + 1; i < MAX_SCORES; i++)
   {

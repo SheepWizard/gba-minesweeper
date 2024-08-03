@@ -19,7 +19,7 @@ typedef struct WinScore
 {
   u32 time;
   int _3bv;
-  int flags;
+  bool noFlag;
 } WinScore;
 
 typedef struct SaveData

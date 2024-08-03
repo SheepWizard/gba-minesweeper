@@ -29,6 +29,7 @@ typedef struct
   int clicks;
   u32 time;
   Difficulty difficulty;
+  bool noFlag;
 } Board;
 
 void update_board(Board *board);

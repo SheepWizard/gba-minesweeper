@@ -130,6 +130,7 @@ static void open_multiple(Board *board, Cell *cell)
 
 static void flag_button_pressed(Board *board, Cell *cell)
 {
+  board->noFlag = false;
   flag_cell(cell);
   draw_cell(cell, board->maxX, board->maxY);
   draw_selector(board->maxX, board->maxY);
@@ -152,6 +153,7 @@ void new_board(Board *board, const int maxX, const int maxY, int minesCount, Dif
   board->nonMineCellsOpened = 0;
   board->time = 0;
   board->difficulty = difficulty;
+  board->noFlag = true;
 
   Cell *cells = malloc(sizeof(Cell) * (maxY * maxX));
   int x;
@@ -249,7 +251,7 @@ static void end_game(Board *board, const bool hasWon)
     WinScore newScore;
     newScore.time = board->time;
     newScore._3bv = _3bv;
-    newScore.flags = board->flagsPlaced;
+    newScore.noFlag = board->noFlag;
 
     save_score(board->difficulty, newScore);
   }
