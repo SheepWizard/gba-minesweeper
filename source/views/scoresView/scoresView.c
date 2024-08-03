@@ -45,7 +45,7 @@ static void display_scores()
       int remainingDeciseconds = scores[i].time % 10;
       minutes = minutes > 99 ? 99 : minutes;
 
-      float _3bvs = (float)scores[i]._3bv / (float)seconds;
+      float _3bvs = (float)scores[i]._3bv / (float)totalSeconds;
 
       char str[355];
       sprintf(str, "%02d)  %02d:%02d.%d                                 %d    %.3f", (i + 1),
