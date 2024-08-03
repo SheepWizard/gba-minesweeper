@@ -1,6 +1,7 @@
 #pragma once
 #include "../../board.h"
 #include "../../view.h"
+#include "../../util.h"
 #include "../../assets/game_background.h"
 #include <string.h>
 

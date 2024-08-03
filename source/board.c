@@ -270,7 +270,7 @@ static void end_game(Board *board, const bool hasWon)
   Selector s = get_selector_position();
   draw_cell(&board->cells[s.posY * board->maxX + s.posX], board->maxX, board->maxY);
   draw_smile_selector();
-  // key_wait_for_clear(KEY_A);
+  key_wait_till_clear_debounce(KEY_A, 25);
 }
 
 static void check_win(Board *board)
@@ -398,6 +398,7 @@ void update_board(Board *board)
   {
     return;
   }
+
   Selector selector = update_selector(board->maxX, board->maxY);
   Cell *currentCell = &board->cells[selector.posY * board->maxX + selector.posX];
 

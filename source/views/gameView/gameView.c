@@ -44,6 +44,7 @@ void update_game_view()
   {
     free_cells(board);
     new_board(board, x, y, mines, currentDifficulty);
+    key_wait_till_clear_debounce(KEY_A, 10);
   }
 
   if (key_released(KEY_SELECT))
