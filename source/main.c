@@ -10,7 +10,9 @@
 int main()
 {
 	REG_DISPCNT = DCNT_MODE3 | DCNT_BG2;
+
 	load_seed();
+
 	key_repeat_mask(KEY_LEFT | KEY_RIGHT | KEY_UP | KEY_DOWN);
 	key_repeat_limits(9, 9);
 
