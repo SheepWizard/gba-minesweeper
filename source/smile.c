@@ -9,6 +9,13 @@ void draw_smile_frame()
   m3_frame(posX - 2, posY - 2, posX + SMILE_SIZE + 2, posY + SMILE_SIZE + 2, FRAME_COLOUR2);
 }
 
+void draw_smile_selector()
+{
+  int posX = (M3_WIDTH / 2) - (SMILE_SIZE / 2);
+  int posY = TOP_PADDING;
+  m3_frame(posX, posY, posX + SMILE_SIZE, posY + SMILE_SIZE, RGB15(31, 0, 0));
+}
+
 void draw_smile(Smiles smile)
 {
   const unsigned int *smileImage = smiley_playBitmap;

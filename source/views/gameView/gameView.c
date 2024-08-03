@@ -40,6 +40,12 @@ void update_game_view()
 {
   update_board(board);
 
+  if (board->gameOver && key_hit(KEY_A))
+  {
+    free_cells(board);
+    new_board(board, x, y, mines, currentDifficulty);
+  }
+
   if (key_released(KEY_SELECT))
   {
     free_cells(board);

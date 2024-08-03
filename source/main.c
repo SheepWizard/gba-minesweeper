@@ -6,19 +6,17 @@
 #include "tonc.h"
 #include "view.h"
 #include "seed.h"
-#include "keyHeldUtil.h"
 
 int main()
 {
 	REG_DISPCNT = DCNT_MODE3 | DCNT_BG2;
-
 	load_seed();
+	key_repeat_limits(9, 9);
 
 	while (1)
 	{
 		vid_vsync();
 		key_poll();
-		key_held_update();
 		watch_view();
 	}
 

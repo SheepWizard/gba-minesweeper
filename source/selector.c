@@ -5,19 +5,19 @@ static int posY = 0;
 
 Selector update_selector(const int maxX, const int maxY)
 {
-  if (key_hit(KEY_RIGHT) || key_held_right())
+  if (key_repeat(KEY_RIGHT))
   {
     posX++;
   }
-  if (key_hit(KEY_LEFT) || key_held_left())
+  if (key_repeat(KEY_LEFT))
   {
     posX--;
   }
-  if (key_hit(KEY_UP) || key_held_up())
+  if (key_repeat(KEY_UP))
   {
     posY--;
   }
-  if (key_hit(KEY_DOWN) || key_held_down())
+  if (key_repeat(KEY_DOWN))
   {
     posY++;
   }
