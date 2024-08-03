@@ -3,6 +3,7 @@
 #include <string.h>
 #include "../../highScores.h"
 #include "../../view.h"
+#include "../../keyHeldUtil.h"
 #include "../../assets/highscore_screen.h"
 
 static const int SCORES_PER_PAGE = 6;

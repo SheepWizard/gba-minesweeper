@@ -6,6 +6,7 @@
 #include "tonc.h"
 #include "view.h"
 #include "seed.h"
+#include "keyHeldUtil.h"
 
 int main()
 {
@@ -17,6 +18,7 @@ int main()
 	{
 		vid_vsync();
 		key_poll();
+		key_held_update();
 		watch_view();
 	}
 

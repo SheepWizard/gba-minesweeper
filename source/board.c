@@ -412,6 +412,7 @@ void update_board(Board *board)
     draw_cell(currentCell, board->maxX, board->maxY);
     draw_selector(board->maxX, board->maxY);
   }
+
   if (key_released(KEY_A))
   {
     draw_smile(SMILE_PLAY);

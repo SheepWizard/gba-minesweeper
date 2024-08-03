@@ -92,21 +92,16 @@ void update_scores_view()
     set_view(VIEW_MAIN_MENU);
     return;
   }
-  if (key_hit(KEY_DOWN))
+  if ((key_hit(KEY_DOWN) || key_held_down()) && scrollOffset != MAX_SCORES - SCORES_PER_PAGE)
   {
-    if (scrollOffset != MAX_SCORES - SCORES_PER_PAGE)
-    {
-      scrollOffset++;
-      display_scores();
-    }
+    scrollOffset++;
+    display_scores();
   }
-  if (key_hit(KEY_UP))
+  if ((key_hit(KEY_UP) || key_held_up()) && scrollOffset != 0)
   {
-    if (scrollOffset != 0)
-    {
-      scrollOffset--;
-      display_scores();
-    }
+
+    scrollOffset--;
+    display_scores();
   }
   if (currentPage != previousPage)
   {
