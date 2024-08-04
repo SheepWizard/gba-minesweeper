@@ -3,7 +3,7 @@
 #include <stddef.h>
 #include <stdlib.h>
 
-#define MAX_SCORES 20
+#define MAX_SCORES 25
 
 enum ErrorCode
 {

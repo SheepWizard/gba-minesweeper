@@ -1,29 +1,40 @@
 #include "highScores.h"
 
+static int compare(const void *a, const void *b)
+{
+  WinScore aScore = *(WinScore *)a;
+  WinScore bScore = *(WinScore *)b;
+
+  if (aScore.time == -1)
+  {
+    return 1;
+  }
+  if (bScore.time == -1)
+  {
+    return -1;
+  }
+  if (aScore.time == bScore.time)
+  {
+    return 0;
+  }
+  else if (aScore.time < bScore.time)
+  {
+    return -1;
+  }
+  else
+  {
+    return 1;
+  }
+}
+
 static void add_highScore(const WinScore newScore, WinScore *list)
 {
-  int i;
-  int replaceIndex = 0;
+  WinScore sort[MAX_SCORES + 1];
+  memcpy(sort, list, sizeof(WinScore) * MAX_SCORES);
+  sort[MAX_SCORES] = newScore;
 
-  for (i = MAX_SCORES - 1; i >= 0; i--)
-  {
-    if (list[i].time > newScore.time || list[i].time == -1)
-    {
-      replaceIndex = i;
-    }
-  }
-
-  WinScore prev = list[replaceIndex];
-  list[replaceIndex].time = newScore.time;
-  list[replaceIndex]._3bv = newScore._3bv;
-  list[replaceIndex].noFlag = newScore.noFlag;
-
-  for (i = replaceIndex + 1; i < MAX_SCORES; i++)
-  {
-    WinScore temp = list[i];
-    list[i] = prev;
-    prev = temp;
-  }
+  qsort(sort, MAX_SCORES + 1, sizeof(WinScore), compare);
+  memcpy(list, sort, sizeof(WinScore) * MAX_SCORES);
 }
 
 void save_score(const ScoreSave type, const WinScore newScore)
