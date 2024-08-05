@@ -5,7 +5,7 @@
 #include "../../view.h"
 #include "../../assets/highscore_screen.h"
 
-static const int SCORES_PER_PAGE = 3;
+static const int SCORES_PER_PAGE = 5;
 
 typedef enum
 {
