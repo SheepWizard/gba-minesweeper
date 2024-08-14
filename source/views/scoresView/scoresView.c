@@ -8,14 +8,30 @@ static void draw_difficulty()
   switch (currentPage)
   {
   case SCORES_PAGE_BEGINNER:
+  {
 
+    tte_set_pos(100, 45);
+    char text[9];
+    sprintf(text, "Beginner");
+    tte_write(text);
     break;
+  }
   case SCORES_PAGE_INTERMEDIATE:
-
+  {
+    tte_set_pos(90, 45);
+    char text[13];
+    sprintf(text, "Intermediate");
+    tte_write(text);
     break;
+  }
   case SCORES_PAGE_EXPERT:
-
+  {
+    tte_set_pos(100, 45);
+    char text[7];
+    sprintf(text, "Expert");
+    tte_write(text);
     break;
+  }
   default:
     break;
   }
