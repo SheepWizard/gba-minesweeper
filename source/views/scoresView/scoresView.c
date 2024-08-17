@@ -9,7 +9,6 @@ static void draw_difficulty()
   {
   case SCORES_PAGE_BEGINNER:
   {
-
     tte_set_pos(100, 45);
     char text[9];
     sprintf(text, "Beginner");

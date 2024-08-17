@@ -22,7 +22,7 @@ static void update_menu_selector(const int previousPosition)
       {
         continue;
       }
-      memcpy(&vid_mem[(x + yOffset) * M3_WIDTH + (SELECTOR_X_OFFSET + y)], &cursorBitmap[y * (SELECTOR_SIZE / 2) + (x / 2)], 2);
+      memcpy(&vid_mem[(y + yOffset) * M3_WIDTH + (SELECTOR_X_OFFSET + x)], &cursorBitmap[y * (SELECTOR_SIZE / 2) + (x / 2)], 2);
     }
   }
 }

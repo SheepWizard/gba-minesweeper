@@ -6,7 +6,7 @@
 #include "../gameView/gameView.h"
 #include <string.h>
 
-static const int SELECTOR_SIZE = 24;
+static const int SELECTOR_SIZE = 16;
 static const int SELECTOR_GAP = 25;
 static const int SELECTOR_X_OFFSET = 12;
 static const int SELECTOR_Y_OFFSET = 45;
