@@ -4,6 +4,10 @@ Player minesweeper on your Game Boy Advanced. With beginner, intermediate, and e
 
 You can download the ROM from the release section.
 
+## Images
+
+![](images/image1.png)
+
 ## Controls
 |Control| Action |
 |--|--|
