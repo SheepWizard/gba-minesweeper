@@ -13,17 +13,9 @@ static void update_menu_selector(const int previousPosition)
   }
 
   yOffset = (SELECTOR_GAP * selectorPosition) + SELECTOR_Y_OFFSET;
-  int x, y;
-  for (y = 0; y < SELECTOR_SIZE; y++)
+  for (i = 0; i < SELECTOR_SIZE; i++)
   {
-    for (x = 0; x < SELECTOR_SIZE; x++)
-    {
-      if (cursorBitmap[y * (SELECTOR_SIZE / 2) + (x / 2)] == 0x00000000)
-      {
-        continue;
-      }
-      memcpy(&vid_mem[(y + yOffset) * M3_WIDTH + (SELECTOR_X_OFFSET + x)], &cursorBitmap[y * (SELECTOR_SIZE / 2) + (x / 2)], 2);
-    }
+    memcpy(&vid_mem[(i + yOffset) * M3_WIDTH + SELECTOR_X_OFFSET], &smiley_playBitmap[i * (SELECTOR_SIZE / 2)], SELECTOR_SIZE * 2);
   }
 }
 
