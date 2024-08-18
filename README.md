@@ -4,6 +4,8 @@ Player minesweeper on your Game Boy Advanced. With beginner, intermediate, and e
 
 You can download the ROM from the [release section](https://github.com/SheepWizard/gba-minesweeper/releases/tag/1.0.0).
 
+[](https://www.youtube.com/watch?v=yNUGPNMnJJQ)
+
 ## Images
 
 ![](images/image1.png)
